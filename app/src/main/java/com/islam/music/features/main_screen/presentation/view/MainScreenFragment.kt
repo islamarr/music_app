@@ -2,7 +2,6 @@ package com.islam.music.features.main_screen.presentation.view
 
 import android.view.*
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.islam.music.R
 import com.islam.music.common.BaseFragment
 import com.islam.music.databinding.FragmentMainScreenBinding
@@ -24,7 +23,7 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
 
 
         for (i in 1..100) { //TODO remove after handle viewmodel
-            list.add(Album(i, "title_$i"))
+            list.add(Album(i, "saved_album_$i"))
         }
         albumsAdapter.submitList(list)
 

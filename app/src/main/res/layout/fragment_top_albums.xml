@@ -5,9 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".features.top_albums.TopAlbumsFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <include
+        android:id="@+id/container"
+        layout="@layout/list_result" />
 
 </FrameLayout>

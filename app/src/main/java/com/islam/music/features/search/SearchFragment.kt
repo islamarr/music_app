@@ -5,6 +5,7 @@ import android.content.Context.SEARCH_SERVICE
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
+import androidx.navigation.fragment.findNavController
 import com.islam.music.R
 import com.islam.music.common.BaseFragment
 import com.islam.music.databinding.FragmentSearchBinding
@@ -27,7 +28,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), SearchView.OnQuery
         initRecyclerView()
 
         for (i in 1..100) { //TODO remove after handle viewmodel
-            list.add(Album(i, "album_$i"))
+            list.add(Album(i, "artist_$i"))
         }
         albumsAdapter.submitList(list)
 
@@ -63,20 +64,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), SearchView.OnQuery
 
     }
 
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.startSearch -> {
-                Log.d("TAG", "startSearch: ")
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onQueryTextSubmit(query: String?): Boolean {
         query?.let {
             Log.d("TAG", "onQueryTextSubmit: $it")
         }
+        findNavController().navigate(R.id.action_searchFragment_to_topAlbumsFragment)
         return true
     }
 

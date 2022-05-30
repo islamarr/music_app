@@ -2,9 +2,11 @@ package com.islam.music.features.main_screen.presentation.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.islam.music.R
 import com.islam.music.databinding.OneItemAlbumBinding
 import com.islam.music.features.main_screen.domain.entites.Album
 
@@ -25,17 +27,16 @@ class AlbumsAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = OneItemAlbumBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-
     }
 
 
@@ -45,6 +46,11 @@ class AlbumsAdapter :
         fun bind(item: Album) {
             binding.title.text = item.title
             binding.dd.text = item.id.toString()
+
+            itemView.setOnClickListener { view ->
+                view.findNavController()
+                    .navigate(R.id.action_topAlbumsFragment_to_albumDetailsFragment)
+            }
         }
 
     }
