@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
@@ -19,6 +20,8 @@ abstract class BaseFragment<viewBinding : ViewBinding> : Fragment() {
 
     abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> viewBinding
 
+    abstract var screenTitle: Int
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,7 +33,13 @@ abstract class BaseFragment<viewBinding : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+        setToolbarTitle()
         setupOnViewCreated(view)
+    }
+
+    fun setToolbarTitle() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = (requireActivity() as AppCompatActivity).resources.getString(screenTitle)
     }
 
     abstract fun setupOnViewCreated(view: View)

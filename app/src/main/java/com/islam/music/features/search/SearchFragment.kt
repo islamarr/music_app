@@ -14,11 +14,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate
+    override var screenTitle = R.string.search_screen_title
 
     override fun setupOnViewCreated(view: View) {
         binding.testNav.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_topAlbumsFragment)
         }
+
     }
 
 }
