@@ -23,7 +23,7 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
         initRecyclerView()
 
 
-        for (i in 1..100) {
+        for (i in 1..100) { //TODO remove after handle viewmodel
             list.add(Album(i, "title_$i"))
         }
         albumsAdapter.submitList(list)
@@ -31,7 +31,7 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
     }
 
     private fun initRecyclerView() {
-        binding.list.apply {
+        binding.container.list.apply {
             albumsAdapter = AlbumsAdapter()
             adapter = albumsAdapter
         }
