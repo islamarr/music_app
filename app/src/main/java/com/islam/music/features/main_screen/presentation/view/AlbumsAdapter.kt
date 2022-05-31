@@ -1,18 +1,21 @@
 package com.islam.music.features.main_screen.presentation.view
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.islam.music.R
+import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
+import com.islam.music.common.OnItemClickListener
 import com.islam.music.databinding.OneGeneralItemBinding
-import com.islam.music.features.main_screen.domain.entites.Album
+import com.islam.music.features.top_albums.domain.entites.Album
 
-class AlbumsAdapter :
+class AlbumsAdapter(private val onItemClickListener: OnItemClickListener) :
     ListAdapter<Album, AlbumsAdapter.MyViewHolder>(DiffCallback) {
-
 
     companion object DiffCallback : DiffUtil.ItemCallback<Album>() {
         override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean {
@@ -23,7 +26,6 @@ class AlbumsAdapter :
             return oldItem.id == newItem.id
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = OneGeneralItemBinding.inflate(
@@ -40,19 +42,24 @@ class AlbumsAdapter :
     }
 
 
-    class MyViewHolder(private var binding: OneGeneralItemBinding) :
+    inner class MyViewHolder(private var binding: OneGeneralItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Album) {
-            binding.title.text = item.title
-            binding.subtitle.text = item.id.toString()
+            binding.title.text = item.name
+            loadImage(itemView.context, item.images[0].url)
 
-            itemView.setOnClickListener { view ->
-                view.findNavController()
-                    .navigate(R.id.action_topAlbumsFragment_to_albumDetailsFragment)
+            itemView.setOnClickListener {
+                onItemClickListener.onClick(item.name)
             }
         }
 
+        private fun loadImage(context: Context, url: String?) {
+            Glide.with(context).load(url)
+                // .placeholder(R.drawable.loading_img)
+                .thumbnail(IMAGE_SIZE_MULTIPLIER)
+                .into(binding.itemImage)
+        }
     }
 
 

@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.islam.music.R
 import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
+import com.islam.music.common.OnItemClickListener
 import com.islam.music.databinding.OneGeneralItemBinding
 import com.islam.music.features.search.domain.entites.Artist
 
-class ArtistsAdapter :
+class ArtistsAdapter(private val onItemClickListener: OnItemClickListener) :
     ListAdapter<Artist, ArtistsAdapter.MyViewHolder>(DiffCallback) { //TODO create base adapter
 
 
@@ -43,16 +44,15 @@ class ArtistsAdapter :
     }
 
 
-    class MyViewHolder(private var binding: OneGeneralItemBinding) :
+    inner class MyViewHolder(private var binding: OneGeneralItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Artist) {
             binding.title.text = item.name
             loadImage(itemView.context, item.images[0].url)
 
-            itemView.setOnClickListener { view ->
-                view.findNavController()
-                    .navigate(R.id.action_topAlbumsFragment_to_albumDetailsFragment)
+            itemView.setOnClickListener {
+                onItemClickListener.onClick(item.name)
             }
         }
 

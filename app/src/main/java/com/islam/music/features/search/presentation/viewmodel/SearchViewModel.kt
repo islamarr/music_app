@@ -31,7 +31,7 @@ class SearchViewModel @Inject constructor(private val useCase: SearchArtistUseCa
         when (result) {
             is SearchResults.UnExpectedError -> SearchStates.ShowErrorMessage()
             is SearchResults.Error -> SearchStates.ShowErrorMessage(result.reason, result.errorCode)
-            is SearchResults.ArtistListLoaded -> SearchStates.ArtistListLoaded(result.carImageURLList)
+            is SearchResults.ArtistListLoaded -> SearchStates.ArtistListLoaded(result.artistList)
             is SearchResults.ArtistEmptyList -> SearchStates.EmptyArtistList
             is SearchResults.Loading -> SearchStates.Loading
         }

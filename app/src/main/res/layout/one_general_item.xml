@@ -23,8 +23,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/itemImage"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:adjustViewBounds="true" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:lineSpacingExtra="0dp"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/subtitle"
@@ -49,7 +49,7 @@
             android:lineSpacingExtra="0dp"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/nextBtn"
@@ -57,11 +57,13 @@
             android:layout_height="30dp"
             app:srcCompat="@drawable/ic_arrow" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/addToFavoriteBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:srcCompat="@drawable/ic_favorite" />
+            android:background="@drawable/ic_favorite"
+            android:button="@null"
+            app:buttonCompat="@null"/>
 
     </LinearLayout>
 

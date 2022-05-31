@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_200"
+    android:background="@color/white"
     tools:context=".features.album_details.AlbumDetailsFragment">
 
     <androidx.core.widget.ContentLoadingProgressBar
@@ -63,16 +63,16 @@
         app:layout_constraintRight_toRightOf="@id/albumName"
         app:layout_constraintTop_toBottomOf="@id/albumName" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tracksTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
-        android:ellipsize="end"
         android:maxLines="1"
+        android:textColor="@color/black"
         android:text="@string/tracks_title"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@id/albumCoverImage"
         app:layout_constraintRight_toRightOf="@id/albumCoverImage"
         app:layout_constraintTop_toBottomOf="@id/albumCoverImage" />

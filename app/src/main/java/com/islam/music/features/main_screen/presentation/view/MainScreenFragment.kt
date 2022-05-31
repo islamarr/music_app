@@ -3,18 +3,17 @@ package com.islam.music.features.main_screen.presentation.view
 import android.view.*
 import androidx.navigation.fragment.findNavController
 import com.islam.music.R
+import com.islam.music.common.OnItemClickListener
 import com.islam.music.common.view.BaseFragment
 import com.islam.music.databinding.FragmentMainScreenBinding
-import com.islam.music.features.main_screen.domain.entites.Album
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
+class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>(), OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainScreenBinding
         get() = FragmentMainScreenBinding::inflate
     override var screenTitle = R.string.main_screen_title
-    private var list: MutableList<Album> = mutableListOf()
 
     private lateinit var albumsAdapter: AlbumsAdapter
 
@@ -22,16 +21,11 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
         initRecyclerView()
 
 
-        for (i in 1..100) { //TODO remove after handle viewmodel
-            list.add(Album(i, "saved_album_$i"))
-        }
-        albumsAdapter.submitList(list)
-
     }
 
     private fun initRecyclerView() {
         binding.container.list.apply {
-            albumsAdapter = AlbumsAdapter()
+            albumsAdapter = AlbumsAdapter(this@MainScreenFragment)
             adapter = albumsAdapter
         }
     }
@@ -48,6 +42,10 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onClick(data: String?) {
+        TODO("Not yet implemented")
     }
 
 

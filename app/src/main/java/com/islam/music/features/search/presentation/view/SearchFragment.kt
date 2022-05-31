@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.islam.music.R
+import com.islam.music.common.OnItemClickListener
 import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.gone
 import com.islam.music.common.visible
@@ -23,7 +25,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding>(), SearchView.OnQueryTextListener {  // TODO set res file style ( strings - dimen - ... ) + make references for everything
+class SearchFragment : BaseFragment<FragmentSearchBinding>(), SearchView.OnQueryTextListener ,
+    OnItemClickListener {  // TODO set res file style ( strings - dimen - ... ) + make references for everything
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate
@@ -37,9 +40,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), SearchView.OnQuery
         startObserver()
     }
 
-    private fun initRecyclerView() {
+    private fun initRecyclerView() { //TODO handle pagination
         binding.container.list.apply {
-            artistsAdapter = ArtistsAdapter()
+            artistsAdapter = ArtistsAdapter(this@SearchFragment)
             adapter = artistsAdapter
         }
     }
@@ -120,6 +123,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), SearchView.OnQuery
             Log.d("TAG", "onQueryTextChange: $it")
         }
         return true
+    }
+
+    override fun onClick(data: String?) {
+        data?.let {
+            findNavController()
+                .navigate(SearchFragmentDirections.actionSearchFragmentToTopAlbumsFragment(it))
+        }
     }
 
 }
