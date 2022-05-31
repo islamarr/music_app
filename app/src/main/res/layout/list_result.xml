@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/one_item_album" />
+        tools:listitem="@layout/one_general_item" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/loading"

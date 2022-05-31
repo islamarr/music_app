@@ -3,7 +3,7 @@ package com.islam.music.features.main_screen.presentation.view
 import android.view.*
 import androidx.navigation.fragment.findNavController
 import com.islam.music.R
-import com.islam.music.common.BaseFragment
+import com.islam.music.common.view.BaseFragment
 import com.islam.music.databinding.FragmentMainScreenBinding
 import com.islam.music.features.main_screen.domain.entites.Album
 import dagger.hilt.android.AndroidEntryPoint

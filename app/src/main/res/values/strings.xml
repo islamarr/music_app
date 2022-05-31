@@ -9,4 +9,5 @@
     <string name="no_data_to_show">no fav</string>
     <string name="tracks_title">Tracks</string>
     <string name="album_image">albumImage</string>
+    <string name="error_message">Something went wrong. please try again</string>
 </resources>

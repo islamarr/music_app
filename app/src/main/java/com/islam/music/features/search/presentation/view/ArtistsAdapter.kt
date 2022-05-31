@@ -1,25 +1,28 @@
-package com.islam.music.features.main_screen.presentation.view
+package com.islam.music.features.search.presentation.view
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.islam.music.R
+import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
 import com.islam.music.databinding.OneGeneralItemBinding
-import com.islam.music.features.main_screen.domain.entites.Album
+import com.islam.music.features.search.domain.entites.Artist
 
-class AlbumsAdapter :
-    ListAdapter<Album, AlbumsAdapter.MyViewHolder>(DiffCallback) {
+class ArtistsAdapter :
+    ListAdapter<Artist, ArtistsAdapter.MyViewHolder>(DiffCallback) { //TODO create base adapter
 
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Album>() {
-        override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<Artist>() { // TODO create class instead of this
+        override fun areItemsTheSame(oldItem: Artist, newItem: Artist): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
+        override fun areContentsTheSame(oldItem: Artist, newItem: Artist): Boolean {
             return oldItem.id == newItem.id
         }
     }
@@ -43,9 +46,9 @@ class AlbumsAdapter :
     class MyViewHolder(private var binding: OneGeneralItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Album) {
-            binding.title.text = item.title
-            binding.subtitle.text = item.id.toString()
+        fun bind(item: Artist) {
+            binding.title.text = item.name
+            loadImage(itemView.context, item.images[0].url)
 
             itemView.setOnClickListener { view ->
                 view.findNavController()
@@ -53,6 +56,12 @@ class AlbumsAdapter :
             }
         }
 
+        private fun loadImage(context: Context, url: String?) {
+            Glide.with(context).load(url)
+                // .placeholder(R.drawable.loading_img)
+                .thumbnail(IMAGE_SIZE_MULTIPLIER)
+                .into(binding.itemImage)
+        }
     }
 
 

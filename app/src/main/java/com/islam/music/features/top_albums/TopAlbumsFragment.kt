@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.islam.music.R
-import com.islam.music.common.BaseFragment
+import com.islam.music.common.view.BaseFragment
 import com.islam.music.databinding.FragmentTopAlbumsBinding
 import com.islam.music.features.main_screen.domain.entites.Album
 import com.islam.music.features.main_screen.presentation.view.AlbumsAdapter

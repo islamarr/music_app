@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_album_details" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.islam.music.features.search.SearchFragment"
+        android:name="com.islam.music.features.search.presentation.view.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <action

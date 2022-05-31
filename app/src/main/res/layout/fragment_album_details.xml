@@ -85,7 +85,7 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/tracksTitle"
-        tools:listitem="@layout/one_item_album" />
+        tools:listitem="@layout/one_general_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

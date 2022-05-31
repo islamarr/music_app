@@ -1,4 +1,4 @@
-package com.islam.music.common
+package com.islam.music.common.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

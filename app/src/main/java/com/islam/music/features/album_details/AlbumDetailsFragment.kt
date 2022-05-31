@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.islam.music.R
-import com.islam.music.common.BaseFragment
+import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
 import com.islam.music.databinding.FragmentAlbumDetailsBinding
 import com.islam.music.features.main_screen.domain.entites.Album
