@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".features.main_screen.presentation.view.MainScreenFragment">
 
-    <include android:id="@+id/container" layout="@layout/list_result" />
+    <include
+        android:id="@+id/container"
+        layout="@layout/list_result" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

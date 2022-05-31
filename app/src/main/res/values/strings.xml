@@ -7,4 +7,6 @@
     <string name="album_details_screen_title">Album Details</string>
     <string name="search_hint">Search for artist</string>
     <string name="no_data_to_show">no fav</string>
+    <string name="tracks_title">Tracks</string>
+    <string name="album_image">albumImage</string>
 </resources>
