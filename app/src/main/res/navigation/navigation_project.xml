@@ -20,9 +20,21 @@
 
     <fragment
         android:id="@+id/albumDetailsFragment"
-        android:name="com.islam.music.features.album_details.AlbumDetailsFragment"
+        android:name="com.islam.music.features.album_details.presentation.view.AlbumDetailsFragment"
         android:label="fragment_album_details"
-        tools:layout="@layout/fragment_album_details" />
+        tools:layout="@layout/fragment_album_details" >
+
+        <argument
+            android:name="artistName"
+            app:argType="string"
+            app:nullable="false" />
+
+        <argument
+            android:name="albumName"
+            app:argType="string"
+            app:nullable="false" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"

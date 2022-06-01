@@ -96,7 +96,7 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(), OnItemClickL
     override fun onClick(data: String?) {
         data?.let {
             findNavController()
-                .navigate(R.id.action_topAlbumsFragment_to_albumDetailsFragment)
+                .navigate(TopAlbumsFragmentDirections.actionTopAlbumsFragmentToAlbumDetailsFragment(args.artistName, data))
         }
     }
 
