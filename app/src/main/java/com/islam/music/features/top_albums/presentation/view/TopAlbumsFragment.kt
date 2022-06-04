@@ -1,13 +1,9 @@
 package com.islam.music.features.top_albums.presentation.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.islam.music.R
@@ -22,11 +18,11 @@ import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsResul
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsStates
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding,TopAlbumsStates, TopAlbumsActions, TopAlbumsResults>(), OnItemClickListener {
+class TopAlbumsFragment :
+    BaseFragment<FragmentTopAlbumsBinding, TopAlbumsStates, TopAlbumsActions, TopAlbumsResults>(),
+    OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTopAlbumsBinding
         get() = FragmentTopAlbumsBinding::inflate
@@ -83,11 +79,16 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding,TopAlbumsStates,
         }
     }
 
-    override fun onClick(data: String, data2: String?) {
-
+    override fun onClick(albumName: String?, artistName: String?) {
+        albumName?.let {
             findNavController()
-                .navigate(TopAlbumsFragmentDirections.actionTopAlbumsFragmentToAlbumDetailsFragment(args.artistName, data))
-
+                .navigate(
+                    TopAlbumsFragmentDirections.actionTopAlbumsFragmentToAlbumDetailsFragment(
+                        args.artistName,
+                        it
+                    )
+                )
+        }
     }
 
 }

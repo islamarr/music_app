@@ -85,13 +85,13 @@ class MainScreenFragment :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onClick(data: String, data2: String?) {
-        data2?.let {
+    override fun onClick(albumName: String?, artistName: String?) {
+        if (albumName != null && artistName != null) {
             findNavController()
                 .navigate(
                     MainScreenFragmentDirections.actionMainScreenFragmentToAlbumDetailsFragment(
-                        data2,
-                        data
+                        artistName,
+                        albumName
                     )
                 )
         }

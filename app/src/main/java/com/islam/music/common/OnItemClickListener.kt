@@ -1,5 +1,5 @@
 package com.islam.music.common
 
 interface OnItemClickListener {
-    fun onClick(data: String, data2: String? = null)
+    fun onClick(albumName: String?= null, artistName: String? = null)
 }

@@ -1,6 +1,5 @@
 package com.islam.music.features.album_details.data.db.datasource
 
-import android.util.Log
 import com.islam.music.features.album_details.domain.entites.AlbumDetails
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 

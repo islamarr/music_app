@@ -104,7 +104,6 @@ class SearchFragment :
         query?.let {
             searchArtistByName(it)
         }
-        // findNavController().navigate(R.id.action_searchFragment_to_topAlbumsFragment)
         return true
     }
 
@@ -115,8 +114,8 @@ class SearchFragment :
         return true
     }
 
-    override fun onClick(data: String, data2: String?) {
-        data.let {
+    override fun onClick(albumName: String?, artistName: String?) {
+        artistName?.let {
             findNavController()
                 .navigate(SearchFragmentDirections.actionSearchFragmentToTopAlbumsFragment(it))
         }
