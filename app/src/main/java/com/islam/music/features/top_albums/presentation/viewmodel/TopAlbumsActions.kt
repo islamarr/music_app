@@ -1,5 +1,7 @@
 package com.islam.music.features.top_albums.presentation.viewmodel
 
-sealed class TopAlbumsActions {
+import com.islam.music.common.Action
+
+sealed class TopAlbumsActions : Action{
     data class LoadAllAlbums(val artistName: String) : TopAlbumsActions()
 }

@@ -3,41 +3,41 @@ package com.islam.music.features.search.presentation.view
 import android.app.SearchManager
 import android.content.Context.SEARCH_SERVICE
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.islam.music.R
 import com.islam.music.common.OnItemClickListener
-import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.gone
+import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentSearchBinding
 import com.islam.music.features.search.presentation.viewmodel.SearchActions
+import com.islam.music.features.search.presentation.viewmodel.SearchResults
 import com.islam.music.features.search.presentation.viewmodel.SearchStates
 import com.islam.music.features.search.presentation.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding>(), SearchView.OnQueryTextListener ,
+class SearchFragment :
+    BaseFragment<FragmentSearchBinding, SearchStates, SearchActions, SearchResults>(),
+    SearchView.OnQueryTextListener,
     OnItemClickListener {  // TODO set res file style ( strings - dimen - ... ) + make references for everything
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate
     override var screenTitle = R.string.search_screen_title
 
-    private val viewModel: SearchViewModel by viewModels()
+    override val viewModel: SearchViewModel by viewModels()
     private lateinit var artistsAdapter: ArtistsAdapter
 
-    override fun setupOnViewCreated(view: View) {
+    override fun setupOnViewCreated() {
         initRecyclerView()
-        startObserver()
     }
 
     private fun initRecyclerView() { //TODO handle pagination
@@ -51,23 +51,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), SearchView.OnQuery
         viewModel.dispatch(SearchActions.SearchArtistByName(query = query))
     }
 
-    private fun startObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect {
-                    handleViewState(it)
-                }
-            }
-        }
-    }
-
     private fun showEmptyList(show: Boolean) {
         binding.container.loading.gone()
         binding.container.resultStatusText.isVisible = show
         binding.container.list.isVisible = !show
     }
 
-    private fun handleViewState(it: SearchStates) {
+    override fun handleViewState(it: SearchStates) {
         when (it) {
             is SearchStates.InitialState -> Log.d("TAG", "InitialState: ")
             is SearchStates.Loading -> binding.container.loading.visible()

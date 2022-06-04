@@ -18,6 +18,7 @@ import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentTopAlbumsBinding
 import com.islam.music.features.main_screen.presentation.view.AlbumsAdapter
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsActions
+import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsResults
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsStates
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,19 +26,18 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(), OnItemClickListener {
+class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding,TopAlbumsStates, TopAlbumsActions, TopAlbumsResults>(), OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTopAlbumsBinding
         get() = FragmentTopAlbumsBinding::inflate
     override var screenTitle = R.string.top_albums_screen_title
 
-    private val viewModel: TopAlbumsViewModel by viewModels()
+    override val viewModel: TopAlbumsViewModel by viewModels()
     private lateinit var albumsAdapter: AlbumsAdapter
     private val args: TopAlbumsFragmentArgs by navArgs()
 
-    override fun setupOnViewCreated(view: View) {
+    override fun setupOnViewCreated() {
         initRecyclerView()
-        startObserver()
         updateTitle()
     }
 
@@ -57,23 +57,13 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(), OnItemClickL
         viewModel.dispatch(TopAlbumsActions.LoadAllAlbums(artistName = artistName))
     }
 
-    private fun startObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect {
-                    handleViewState(it)
-                }
-            }
-        }
-    }
-
     private fun showEmptyList(show: Boolean) {
         binding.container.loading.gone()
         binding.container.resultStatusText.isVisible = show
         binding.container.list.isVisible = !show
     }
 
-    private fun handleViewState(it: TopAlbumsStates) {
+    override fun handleViewState(it: TopAlbumsStates) {
         when (it) {
             is TopAlbumsStates.InitialState -> loadTopAlbums(args.artistName)
             is TopAlbumsStates.Loading -> binding.container.loading.visible()

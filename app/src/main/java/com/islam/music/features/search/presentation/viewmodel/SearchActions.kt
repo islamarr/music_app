@@ -1,5 +1,7 @@
 package com.islam.music.features.search.presentation.viewmodel
 
-sealed class SearchActions {
+import com.islam.music.common.Action
+
+sealed class SearchActions : Action{
     data class SearchArtistByName(val query: String) : SearchActions()
 }

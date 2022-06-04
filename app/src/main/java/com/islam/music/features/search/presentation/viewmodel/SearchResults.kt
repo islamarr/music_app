@@ -1,8 +1,9 @@
 package com.islam.music.features.search.presentation.viewmodel
 
+import com.islam.music.common.Result
 import com.islam.music.features.search.domain.entites.Artist
 
-sealed class SearchResults {
+sealed class SearchResults : Result{
     object Loading : SearchResults()
     object UnExpectedError : SearchResults()
     object ArtistEmptyList : SearchResults()

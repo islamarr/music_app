@@ -1,33 +1,17 @@
 package com.islam.music.features.search.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.islam.music.common.BaseViewModel
 import com.islam.music.features.search.domain.usecases.SearchArtistUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val useCase: SearchArtistUseCase) : ViewModel() {
-    //TODO create base ViewModel
+class SearchViewModel @Inject constructor(private val useCase: SearchArtistUseCase) :
+    BaseViewModel<SearchStates, SearchActions, SearchResults>(SearchStates.InitialState) {
 
-    private val _state = MutableStateFlow<SearchStates>(SearchStates.InitialState)
-    val state: StateFlow<SearchStates>
-        get() = _state.asStateFlow()
-
-    fun dispatch(action: SearchActions) {
-        handle(action).map { result ->
-            reduce(result)
-        }.onEach { state ->
-            onViewState(state)
-        }.launchIn(viewModelScope)
-    }
-
-    private suspend fun onViewState(state: SearchStates) {
-        _state.emit(state)
-    }
-
-    fun reduce(result: SearchResults): SearchStates =
+    override fun reduce(result: SearchResults): SearchStates =
         when (result) {
             is SearchResults.UnExpectedError -> SearchStates.ShowErrorMessage()
             is SearchResults.Error -> SearchStates.ShowErrorMessage(result.reason)
@@ -36,7 +20,7 @@ class SearchViewModel @Inject constructor(private val useCase: SearchArtistUseCa
             is SearchResults.Loading -> SearchStates.Loading
         }
 
-    fun handle(actions: SearchActions): Flow<SearchResults> = flow {
+    override fun handle(actions: SearchActions): Flow<SearchResults> = flow {
         when (actions) {
             is SearchActions.SearchArtistByName -> {
                 emit(SearchResults.Loading)
