@@ -30,7 +30,7 @@ class SearchViewModel @Inject constructor(private val useCase: SearchArtistUseCa
     fun reduce(result: SearchResults): SearchStates =
         when (result) {
             is SearchResults.UnExpectedError -> SearchStates.ShowErrorMessage()
-            is SearchResults.Error -> SearchStates.ShowErrorMessage(result.reason, result.errorCode)
+            is SearchResults.Error -> SearchStates.ShowErrorMessage(result.reason)
             is SearchResults.ArtistListLoaded -> SearchStates.ArtistListLoaded(result.artistList)
             is SearchResults.ArtistEmptyList -> SearchStates.EmptyArtistList
             is SearchResults.Loading -> SearchStates.Loading

@@ -1,5 +1,6 @@
 package com.islam.music.features.main_screen.presentation.view
 
+import android.util.Log
 import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -40,6 +41,7 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>(), OnItemClic
     override fun setupOnViewCreated(view: View) {
         initRecyclerView()
         startObserver()
+        loadAlbumList()
     }
 
     private fun initRecyclerView() {
@@ -71,7 +73,7 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>(), OnItemClic
 
     private fun handleViewState(it: MainScreenStates) {
         when (it) {
-            is MainScreenStates.InitialState -> loadAlbumList()
+            is MainScreenStates.InitialState -> Log.d("tag", "handleViewState: ")
             is MainScreenStates.Loading -> binding.container.loading.visible()
             is MainScreenStates.TopAlbumsListLoaded -> {
                 showEmptyList(false)

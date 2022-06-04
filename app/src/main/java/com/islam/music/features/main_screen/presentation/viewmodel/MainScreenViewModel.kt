@@ -30,10 +30,7 @@ class MainScreenViewModel @Inject constructor(private val useCase: MainScreenUse
     fun reduce(result: MainScreenResults): MainScreenStates =
         when (result) {
             is MainScreenResults.UnExpectedError -> MainScreenStates.ShowErrorMessage()
-            is MainScreenResults.Error -> MainScreenStates.ShowErrorMessage(
-                result.reason,
-                result.errorCode
-            )
+            is MainScreenResults.Error -> MainScreenStates.ShowErrorMessage(result.reason)
             is MainScreenResults.Loading -> MainScreenStates.Loading
             is MainScreenResults.EmptyList -> MainScreenStates.EmptyTopAlbumsList
             is MainScreenResults.ListLoaded -> MainScreenStates.TopAlbumsListLoaded(result.topAlbumsList)

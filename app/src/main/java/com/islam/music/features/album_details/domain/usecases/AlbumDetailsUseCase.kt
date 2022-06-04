@@ -1,6 +1,6 @@
 package com.islam.music.features.album_details.domain.usecases
 
-import com.islam.music.common.NetworkResponse
+import com.islam.music.common.DataResponse
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import com.islam.music.features.album_details.domain.repositories.AlbumDetailsRepository
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsResults
@@ -16,17 +16,16 @@ class AlbumDetailsUseCase @Inject constructor(private val repository: AlbumDetai
     ): AlbumDetailsResults {
         return when (val response = repository.getAlbumDetails(artistName, albumName)) {
 
-            is NetworkResponse.Success -> {
+            is DataResponse.Success -> {
                 response.data?.let {
                     AlbumDetailsResults.RemoteAlbumDetails(it) //TODO inject mapper
                 } ?: AlbumDetailsResults.UnExpectedError
             }
-            is NetworkResponse.Failure -> {
+            is DataResponse.Failure -> {
                 response.reason?.let {
-                    AlbumDetailsResults.Error(response.reason, response.httpCode)
+                    AlbumDetailsResults.Error(response.reason)
                 } ?: AlbumDetailsResults.UnExpectedError
             }
-
         }
 
     }

@@ -12,6 +12,6 @@ interface SearchAPIService {
     suspend fun searchByArtist(
         @Query("artist") artist: String,
         @Query("page") page: Int
-    ): Response<ArtistResponse>
+    ): ArtistResponse
 
 }

@@ -7,12 +7,12 @@ import retrofit2.HttpException
 /**
  * To handle Http Exceptions Like no internet connection and Time out
  */
-abstract class NetworkRemoteServiceCall2<T>(
+abstract class SafeServiceCall<T>(
     private val apiCall: (suspend () -> T?)? = null,
     private val cacheCall: (suspend () -> T?)? = null
 ) {
 
-    suspend fun safeCall(): NetworkResponse<T> {
+    suspend fun safeCall(): DataResponse<T> {
         cacheCall?.let {
             safeCacheCall(it)
         }
@@ -22,45 +22,42 @@ abstract class NetworkRemoteServiceCall2<T>(
         } ?: return safeCacheCall(cacheCall)
     }
 
-    suspend fun safeApiCall(
+    private suspend fun safeApiCall(
         apiCall: (suspend () -> T?)?
-    ): NetworkResponse<T> {
+    ): DataResponse<T> {
         return withContext(Dispatchers.IO) {
             try {
                 val result = apiCall?.invoke()
                 result?.let {
-                    NetworkResponse.Success(it)
-                } ?: NetworkResponse.Failure(0, "")
+                    DataResponse.Success(it)
+                } ?: DataResponse.Failure()
 
             } catch (throwable: Throwable) {
                 cacheCall?.let {
                     safeCacheCall(it)
                 } ?: when (throwable) {
                     is HttpException -> {
-                        NetworkResponse.Failure(
-                            throwable.code(),
-                            throwable.response()?.errorBody().toString()
-                        )
+                        DataResponse.Failure(throwable.response()?.errorBody().toString())
                     }
                     else -> {
-                        NetworkResponse.Failure(0, throwable.message)
+                        DataResponse.Failure(throwable.message)
                     }
                 }
             }
         }
     }
 
-    suspend fun safeCacheCall(
+    private suspend fun safeCacheCall(
         cacheCall: (suspend () -> T?)?
-    ): NetworkResponse<T> {
+    ): DataResponse<T> {
         return withContext(Dispatchers.IO) {
             try {
                 val result = cacheCall?.invoke()
                 result?.let {
-                    NetworkResponse.Success(it)
-                } ?: NetworkResponse.Failure(0, "")
+                    DataResponse.Success(it)
+                } ?: DataResponse.Failure()
             } catch (e: Exception) {
-                NetworkResponse.Failure(0, e.message)
+                DataResponse.Failure(e.message)
             }
         }
     }

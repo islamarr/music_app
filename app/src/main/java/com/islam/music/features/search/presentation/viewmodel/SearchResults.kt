@@ -7,5 +7,5 @@ sealed class SearchResults {
     object UnExpectedError : SearchResults()
     object ArtistEmptyList : SearchResults()
     data class ArtistListLoaded(val artistList: List<Artist>) : SearchResults()
-    data class Error(val reason: String, val errorCode: Int) : SearchResults()
+    data class Error(val reason: String) : SearchResults()
 }

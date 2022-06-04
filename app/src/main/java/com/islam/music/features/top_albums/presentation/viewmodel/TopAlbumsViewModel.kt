@@ -29,9 +29,7 @@ class TopAlbumsViewModel @Inject constructor(private val useCase: TopAlbumsUseCa
         when (result) {
             is TopAlbumsResults.UnExpectedError -> TopAlbumsStates.ShowErrorMessage()
             is TopAlbumsResults.Error -> TopAlbumsStates.ShowErrorMessage(
-                result.reason,
-                result.errorCode
-            )
+                result.reason)
             is TopAlbumsResults.TopAlbumsListLoaded -> TopAlbumsStates.TopAlbumsListLoaded(result.topAlbumsList)
             is TopAlbumsResults.TopAlbumsEmptyList -> TopAlbumsStates.EmptyTopAlbumsList
             is TopAlbumsResults.Loading -> TopAlbumsStates.Loading

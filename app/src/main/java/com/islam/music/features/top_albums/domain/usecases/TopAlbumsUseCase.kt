@@ -1,6 +1,6 @@
 package com.islam.music.features.top_albums.domain.usecases
 
-import com.islam.music.common.NetworkResponse
+import com.islam.music.common.DataResponse
 import com.islam.music.features.top_albums.domain.repositories.TopAlbumsRepository
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsResults
 import dagger.hilt.android.scopes.ViewModelScoped
@@ -11,15 +11,15 @@ class TopAlbumsUseCase @Inject constructor(private val repository: TopAlbumsRepo
 
     suspend fun execute(artistName: String): TopAlbumsResults {
         return when (val response = repository.getTopAlbums(artistName)) {
-            is NetworkResponse.Success -> {
-                response.data?.body()?.let {
+            is DataResponse.Success -> {
+                response.data?.let {
                     if (it.topAlbums.albums.isEmpty()) TopAlbumsResults.TopAlbumsEmptyList else
                         TopAlbumsResults.TopAlbumsListLoaded(it.topAlbums.albums)
                 } ?: TopAlbumsResults.UnExpectedError
             }
-            is NetworkResponse.Failure -> {
+            is DataResponse.Failure -> {
                 response.reason?.let {
-                    TopAlbumsResults.Error(response.reason, response.httpCode)
+                    TopAlbumsResults.Error(response.reason)
                 } ?: TopAlbumsResults.UnExpectedError
             }
         }

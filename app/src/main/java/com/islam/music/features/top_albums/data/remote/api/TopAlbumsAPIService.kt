@@ -11,6 +11,6 @@ import retrofit2.http.Query
 interface TopAlbumsAPIService { //TODO remove and add format=json&api_key=${BuildConfig.API_KEY} to interceptor
 
     @GET("?method=artist.gettopalbums&format=json&api_key=${BuildConfig.API_KEY}")
-    suspend fun getTopAlbums(@Query("artist") artistName: String): Response<TopAlbumsResponse> //TODO remove Response
+    suspend fun getTopAlbums(@Query("artist") artistName: String): TopAlbumsResponse //TODO remove Response
 
 }

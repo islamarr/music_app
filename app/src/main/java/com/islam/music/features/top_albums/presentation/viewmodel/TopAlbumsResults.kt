@@ -7,5 +7,5 @@ sealed class TopAlbumsResults {
     object UnExpectedError : TopAlbumsResults()
     object TopAlbumsEmptyList : TopAlbumsResults()
     data class TopAlbumsListLoaded(val topAlbumsList: List<Album>) : TopAlbumsResults()
-    data class Error(val reason: String, val errorCode: Int) : TopAlbumsResults()
+    data class Error(val reason: String) : TopAlbumsResults()
 }

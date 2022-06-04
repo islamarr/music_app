@@ -30,8 +30,7 @@ class AlbumDetailsViewModel @Inject constructor(private val useCase: AlbumDetail
         when (result) {
             is AlbumDetailsResults.UnExpectedError -> AlbumDetailsStates.ShowErrorMessage()
             is AlbumDetailsResults.Error -> AlbumDetailsStates.ShowErrorMessage(
-                result.reason,
-                result.errorCode
+                result.reason
             )
             is AlbumDetailsResults.RemoteAlbumDetails -> AlbumDetailsStates.AlbumDetailsData(
                 result.albumDetails

@@ -7,5 +7,5 @@ sealed class AlbumDetailsResults {
     object UnExpectedError : AlbumDetailsResults()
     data class RemoteAlbumDetails(val albumDetails: AlbumEntity) : AlbumDetailsResults()
     data class LocalAlbumDetails(val albumDetails: AlbumEntity) : AlbumDetailsResults()
-    data class Error(val reason: String, val errorCode: Int) : AlbumDetailsResults()
+    data class Error(val reason: String) : AlbumDetailsResults()
 }

@@ -8,5 +8,5 @@ sealed class MainScreenResults {
     object UnExpectedError : MainScreenResults()
     object EmptyList : MainScreenResults()
     data class ListLoaded(val topAlbumsList: List<Album>) : MainScreenResults()
-    data class Error(val reason: String, val errorCode: Int) : MainScreenResults()
+    data class Error(val reason: String) : MainScreenResults()
 }

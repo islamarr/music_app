@@ -1,8 +1,7 @@
 package com.islam.music.features.album_details.data.repositories
 
-import com.islam.music.common.NetworkRemoteServiceCall
-import com.islam.music.common.NetworkRemoteServiceCall2
-import com.islam.music.common.NetworkResponse
+import com.islam.music.common.DataResponse
+import com.islam.music.common.SafeServiceCall
 import com.islam.music.features.album_details.data.db.datasource.AlbumDetailsLocalDataSource
 import com.islam.music.features.album_details.data.remote.datasource.AlbumDetailsRemoteDataSource
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
@@ -18,8 +17,8 @@ class AlbumDetailsRepositoryImpl @Inject constructor(
     override suspend fun getAlbumDetails(
         artistName: String,
         albumName: String
-    ): NetworkResponse<AlbumEntity> {
-        return object : NetworkRemoteServiceCall2<AlbumEntity>(
+    ): DataResponse<AlbumEntity> {
+        return object : SafeServiceCall<AlbumEntity>(
             apiCall = { remoteDataSource.getAlbumDetails(artistName, albumName) },
             cacheCall = { localDataSource.getOneFavoriteAlbum(artistName, albumName) }
         ) {}.safeCall()
@@ -33,11 +32,10 @@ class AlbumDetailsRepositoryImpl @Inject constructor(
         localDataSource.removeFromFavoriteList(album)
     }
 
-    override suspend fun getFavoriteList(): NetworkResponse<List<Album>> {
-        return object : NetworkRemoteServiceCall2<List<Album>>(
+    override suspend fun getFavoriteList(): DataResponse<List<Album>> {
+        return object : SafeServiceCall<List<Album>>(
             cacheCall = { localDataSource.getFavoriteList() }
         ) {}.safeCall()
-       // return localDataSource.getFavoriteList()
     }
 
 }
