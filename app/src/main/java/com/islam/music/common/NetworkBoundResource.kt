@@ -31,16 +31,12 @@ abstract class NetworkBoundResource<NetworkObj, CacheObj, ViewState>(
     private suspend fun safeAPICall() = flow<DataState<ViewState>> {
         withContext(dispatcher) {
             try {
-                Log.d("zzzz", "  try { ")
                 // throws TimeoutCancellationException
                 withTimeout(NETWORK_TIMEOUT) {
                     val result = apiCall?.invoke()
-                    Log.d("zzzz", "NETWORK_TIMEOUT ")
                     if (result == null) {
-                        Log.d("zzzz", "result == null ")
                         emit(DataState.ERROR(UNKNOWN_ERROR))
                     } else {
-                        Log.d("zzzz", "result != null ")
                         updateCache(result)
                         handleNetworkSuccess(result)?.let {
                             emit(it)

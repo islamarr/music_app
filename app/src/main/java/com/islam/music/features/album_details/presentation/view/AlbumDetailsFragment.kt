@@ -93,6 +93,7 @@ class AlbumDetailsFragment :
                 showEmptyList(false)
                 trackAdapter.submitList(it.albumDetails.trackList)
                 loadImage(it.albumDetails.coverImageUrl)
+                albumEntity = it.albumDetails
             }
             is AlbumDetailsStates.ShowErrorMessage -> {
                 showEmptyList(true)

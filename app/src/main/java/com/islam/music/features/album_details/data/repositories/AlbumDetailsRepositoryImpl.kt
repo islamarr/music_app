@@ -1,5 +1,7 @@
 package com.islam.music.features.album_details.data.repositories
 
+import com.islam.music.common.NetworkRemoteServiceCall
+import com.islam.music.common.NetworkRemoteServiceCall2
 import com.islam.music.common.NetworkResponse
 import com.islam.music.features.album_details.data.db.datasource.AlbumDetailsLocalDataSource
 import com.islam.music.features.album_details.data.remote.datasource.AlbumDetailsRemoteDataSource
@@ -16,7 +18,10 @@ class AlbumDetailsRepositoryImpl @Inject constructor(
         artistName: String,
         albumName: String
     ): NetworkResponse<AlbumEntity> {
-        return remoteDataSource.getAlbumDetails(artistName, albumName)
+        return object : NetworkRemoteServiceCall2<AlbumEntity>(
+            apiCall = { remoteDataSource.getAlbumDetails(artistName, albumName) },
+            cacheCall = { localDataSource.getOneFavoriteAlbum(artistName, albumName) }
+        ) {}.safeCall()
     }
 
     override suspend fun addToFavoriteList(album: AlbumEntity) {

@@ -12,14 +12,14 @@ class AlbumDetailsRemoteDataSourceImpl @Inject constructor(private val apiServic
     override suspend fun getAlbumDetails(
         artistName: String,
         albumName: String
-    ): NetworkResponse<AlbumEntity> {
-        return safeApiCall {
-            AlbumDetailsToAlbumMapper().map(
+    ): AlbumEntity {
+
+           return AlbumDetailsToAlbumMapper().map(
                 apiService.getAlbumDetails(
                     artistName,
                     albumName
                 ).album
             ) //TODO change map parameter
-        }
+
     }
 }

@@ -10,10 +10,6 @@ import javax.inject.Inject
 @ViewModelScoped
 class AlbumDetailsUseCase @Inject constructor(private val repository: AlbumDetailsRepository) {
 
-    suspend fun save(albumEntity: AlbumEntity) {
-        repository.addToFavoriteList(albumEntity)
-    }
-
     suspend fun execute(
         artistName: String,//TODO add artistName + albumName in data class
         albumName: String
@@ -34,4 +30,10 @@ class AlbumDetailsUseCase @Inject constructor(private val repository: AlbumDetai
         }
 
     }
+
+
+    suspend fun save(albumEntity: AlbumEntity) {//TODO new use case
+        repository.addToFavoriteList(albumEntity)
+    }
+
 }

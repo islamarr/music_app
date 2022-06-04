@@ -1,5 +1,6 @@
 package com.islam.music.features.album_details.domain.repositories
 
+import com.islam.music.common.NetworkRemoteServiceCall
 import com.islam.music.common.NetworkResponse
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 

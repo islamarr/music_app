@@ -1,7 +1,7 @@
 package com.islam.music.common
 
 
-sealed class NetworkResponse<T> {
+sealed class NetworkResponse<T> { //TODO add loading class here
     data class Success<T>(
         val data: T?,
     ) : NetworkResponse<T>()
