@@ -1,5 +1,6 @@
 package com.islam.music.features.album_details.data.remote.datasource
 
+import com.islam.music.common.NetworkResponse
 import com.islam.music.features.album_details.data.db.datasource.AlbumDetailsToAlbumMapper
 import com.islam.music.features.album_details.data.remote.api.AlbumDetailsAPIService
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
@@ -11,7 +12,14 @@ class AlbumDetailsRemoteDataSourceImpl @Inject constructor(private val apiServic
     override suspend fun getAlbumDetails(
         artistName: String,
         albumName: String
-    ): AlbumEntity {
-        return AlbumDetailsToAlbumMapper().map(apiService.getAlbumDetails(artistName, albumName).album) //TODO change map parameter
+    ): NetworkResponse<AlbumEntity> {
+        return safeApiCall {
+            AlbumDetailsToAlbumMapper().map(
+                apiService.getAlbumDetails(
+                    artistName,
+                    albumName
+                ).album
+            ) //TODO change map parameter
+        }
     }
 }

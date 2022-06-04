@@ -85,21 +85,8 @@ class AlbumDetailsFragment :
         binding.albumTrackList.isVisible = !show
     }
 
-    private fun handleViewState(it: Resource<AlbumEntity>) {
+    private fun handleViewState(it: AlbumDetailsStates) {
         when (it) {
-            is Resource.Error -> showEmptyList(true)
-            is Resource.Loading -> binding.loading.visible()
-            is Resource.Success -> {
-                showEmptyList(false)
-                it.data.let { item ->
-                    trackAdapter.submitList(item.trackList)
-                    loadImage(item.coverImageUrl)
-                    albumEntity = item
-                }
-            }
-            is Resource.Empty -> loadAlbumDetails(args.artistName, args.albumName)
-        }
-        /*when (it) {
             is AlbumDetailsStates.InitialState -> loadAlbumDetails(args.artistName, args.albumName)
             is AlbumDetailsStates.Loading -> binding.loading.visible()
             is AlbumDetailsStates.AlbumDetailsData -> {
@@ -111,7 +98,7 @@ class AlbumDetailsFragment :
                 showEmptyList(true)
                 //  binding.resultStatusText.text = getString(R.string.error_message) //TODO handle this
             }
-        }*/
+        }
     }
 
 }

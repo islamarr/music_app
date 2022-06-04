@@ -2,7 +2,6 @@ package com.islam.music.features.album_details.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.islam.music.common.DataState
 import com.islam.music.common.Resource
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import com.islam.music.features.album_details.domain.usecases.AlbumDetailsUseCase
@@ -13,17 +12,19 @@ import javax.inject.Inject
 @HiltViewModel
 class AlbumDetailsViewModel @Inject constructor(private val useCase: AlbumDetailsUseCase) :
     ViewModel() {
-    private val _state = MutableStateFlow<Resource<AlbumEntity>>(Resource.Empty)
-    val state: StateFlow<Resource<AlbumEntity>>
+    private val _state = MutableStateFlow<AlbumDetailsStates>(AlbumDetailsStates.InitialState)
+    val state: StateFlow<AlbumDetailsStates>
         get() = _state.asStateFlow()
 
     fun dispatch(action: AlbumDetailsActions) {
-        handle(action).onEach { state ->
+        handle(action).map { result ->
+            reduce(result)
+        }.onEach { state ->
             onViewState(state)
         }.launchIn(viewModelScope)
     }
 
-    private suspend fun onViewState(state: Resource<AlbumEntity>) {
+    private suspend fun onViewState(state: AlbumDetailsStates) {
         _state.emit(state)
     }
 
@@ -41,13 +42,11 @@ class AlbumDetailsViewModel @Inject constructor(private val useCase: AlbumDetail
             is AlbumDetailsResults.LocalAlbumDetails -> TODO()
         }
 
-    fun handle(actions: AlbumDetailsActions): Flow<Resource<AlbumEntity>> = flow {
+    fun handle(actions: AlbumDetailsActions): Flow<AlbumDetailsResults> = flow {
         when (actions) {
             is AlbumDetailsActions.AlbumDetailsAction -> {
-                //  emit(AlbumDetailsResults.Loading)
-                useCase.execute(actions.artistName, actions.albumName).collect {
-                    emit(it)
-                }
+                emit(AlbumDetailsResults.Loading)
+                emit(useCase.execute(actions.artistName, actions.albumName))
             }
             is AlbumDetailsActions.Save -> useCase.save(actions.albumEntity)
         }
