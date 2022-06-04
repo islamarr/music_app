@@ -93,11 +93,11 @@ class TopAlbumsFragment : BaseFragment<FragmentTopAlbumsBinding>(), OnItemClickL
         }
     }
 
-    override fun onClick(data: String?) {
-        data?.let {
+    override fun onClick(data: String, data2: String?) {
+
             findNavController()
                 .navigate(TopAlbumsFragmentDirections.actionTopAlbumsFragmentToAlbumDetailsFragment(args.artistName, data))
-        }
+
     }
 
 }

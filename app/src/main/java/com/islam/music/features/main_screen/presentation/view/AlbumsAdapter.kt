@@ -51,7 +51,7 @@ class AlbumsAdapter(private val onItemClickListener: OnItemClickListener) :
             loadImage(itemView.context, item.images[0].url)
 
             itemView.setOnClickListener {
-                onItemClickListener.onClick(item.name)
+                onItemClickListener.onClick(item.name, item.artist.name)
             }
         }
 

@@ -8,7 +8,7 @@ import retrofit2.HttpException
  * To handle Http Exceptions Like no internet connection and Time out
  */
 abstract class NetworkRemoteServiceCall2<T>(
-    private val apiCall: suspend () -> T,
+    private val apiCall: (suspend () -> T?)? = null,
     private val cacheCall: (suspend () -> T?)? = null
 ) {
 
@@ -16,15 +16,18 @@ abstract class NetworkRemoteServiceCall2<T>(
         cacheCall?.let {
             safeCacheCall(it)
         }
-        return safeApiCall(apiCall)
+
+        apiCall?.let {
+            return safeApiCall(it)
+        } ?: return safeCacheCall(cacheCall)
     }
 
     suspend fun safeApiCall(
-        apiCall: suspend () -> T
+        apiCall: (suspend () -> T?)?
     ): NetworkResponse<T> {
         return withContext(Dispatchers.IO) {
             try {
-                val result = apiCall.invoke()
+                val result = apiCall?.invoke()
                 result?.let {
                     NetworkResponse.Success(it)
                 } ?: NetworkResponse.Failure(0, "")

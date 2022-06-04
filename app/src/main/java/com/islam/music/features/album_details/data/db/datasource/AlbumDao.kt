@@ -15,7 +15,7 @@ interface AlbumDao {
     suspend fun removeFromFavoriteList(album: AlbumEntity)
 
     @Query("SELECT * FROM album")
-    fun getFavoriteList(): MutableList<AlbumEntity>
+    fun getFavoriteList(): List<AlbumEntity>
 
     @Query("SELECT * FROM album WHERE artistName = :artistName and albumName = :albumName")
     fun getOneFavoriteAlbum(artistName: String, albumName: String): AlbumEntity

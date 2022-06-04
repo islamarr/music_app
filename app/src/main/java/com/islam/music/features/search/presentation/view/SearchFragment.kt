@@ -125,8 +125,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), SearchView.OnQuery
         return true
     }
 
-    override fun onClick(data: String?) {
-        data?.let {
+    override fun onClick(data: String, data2: String?) {
+        data.let {
             findNavController()
                 .navigate(SearchFragmentDirections.actionSearchFragmentToTopAlbumsFragment(it))
         }

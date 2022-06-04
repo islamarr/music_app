@@ -7,6 +7,7 @@ import com.islam.music.features.album_details.data.db.datasource.AlbumDetailsLoc
 import com.islam.music.features.album_details.data.remote.datasource.AlbumDetailsRemoteDataSource
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import com.islam.music.features.album_details.domain.repositories.AlbumDetailsRepository
+import com.islam.music.features.top_albums.domain.entites.Album
 import javax.inject.Inject
 
 class AlbumDetailsRepositoryImpl @Inject constructor(
@@ -30,6 +31,13 @@ class AlbumDetailsRepositoryImpl @Inject constructor(
 
     override suspend fun removeFromFavoriteList(album: AlbumEntity) {
         localDataSource.removeFromFavoriteList(album)
+    }
+
+    override suspend fun getFavoriteList(): NetworkResponse<List<Album>> {
+        return object : NetworkRemoteServiceCall2<List<Album>>(
+            cacheCall = { localDataSource.getFavoriteList() }
+        ) {}.safeCall()
+       // return localDataSource.getFavoriteList()
     }
 
 }

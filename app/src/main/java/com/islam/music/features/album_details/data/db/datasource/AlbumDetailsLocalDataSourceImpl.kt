@@ -1,6 +1,8 @@
 package com.islam.music.features.album_details.data.db.datasource
 
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
+import com.islam.music.features.main_screen.data.db.AlbumEntityToAlbumMapper
+import com.islam.music.features.top_albums.domain.entites.Album
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
@@ -14,8 +16,8 @@ class AlbumDetailsLocalDataSourceImpl @Inject constructor(private val albumDao: 
         albumDao.removeFromFavoriteList(album)
     }
 
-    override fun getFavoriteList(): MutableList<AlbumEntity> {
-        return albumDao.getFavoriteList()
+    override fun getFavoriteList(): List<Album> {
+        return albumDao.getFavoriteList().map {  AlbumEntityToAlbumMapper().map(it) }
     }
 
     override fun getOneFavoriteAlbum(
