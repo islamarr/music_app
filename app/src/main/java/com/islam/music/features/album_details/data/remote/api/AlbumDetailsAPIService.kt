@@ -12,6 +12,6 @@ interface AlbumDetailsAPIService {
     suspend fun getAlbumDetails(
         @Query("artist") artistName: String,
         @Query("album") albumName: String
-    ): Response<AlbumDetailsResponse>
+    ): AlbumDetailsResponse
 
 }

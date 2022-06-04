@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.islam.music.R
 import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
 import com.islam.music.common.OnItemClickListener
@@ -60,6 +61,7 @@ class ArtistsAdapter(private val onItemClickListener: OnItemClickListener) :
             Glide.with(context).load(url)
                 // .placeholder(R.drawable.loading_img)
                 .thumbnail(IMAGE_SIZE_MULTIPLIER)
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .into(binding.itemImage)
         }
     }

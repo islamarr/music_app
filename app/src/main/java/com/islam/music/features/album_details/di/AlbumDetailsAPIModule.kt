@@ -9,7 +9,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import retrofit2.Retrofit
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(ViewModelComponent::class) //TODO Singleton better?
 class AlbumDetailsAPIModule {
 
     @Provides

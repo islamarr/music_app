@@ -1,6 +1,6 @@
 package com.islam.music.features.album_details.presentation.viewmodel
 
-import com.islam.music.features.album_details.domain.entites.AlbumDetails
+import com.islam.music.features.album_details.domain.entites.AlbumEntity
 
 
 sealed class AlbumDetailsStates {
@@ -9,6 +9,6 @@ sealed class AlbumDetailsStates {
     data class ShowErrorMessage(val reason: String? = null, val errorCode: Int? = 0) :
         AlbumDetailsStates()
 
-    data class AlbumDetailsData(val albumDetails: AlbumDetails) :
+    data class AlbumDetailsData(val albumDetails: AlbumEntity) :
         AlbumDetailsStates()
 }
