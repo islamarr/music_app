@@ -1,7 +1,7 @@
 package com.islam.music.features.album_details.data.repositories
 
-import com.islam.music.common.DataResponse
-import com.islam.music.common.SafeServiceCall
+import com.islam.music.common.data.DataResponse
+import com.islam.music.common.data.SafeServiceCall
 import com.islam.music.features.album_details.data.db.datasource.AlbumDetailsLocalDataSource
 import com.islam.music.features.album_details.data.remote.datasource.AlbumDetailsRemoteDataSource
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
@@ -19,7 +19,7 @@ class AlbumDetailsRepositoryImpl @Inject constructor(
         albumName: String
     ): DataResponse<AlbumEntity> {
         return object : SafeServiceCall<AlbumEntity>(
-            apiCall = { remoteDataSource.getAlbumDetails(artistName, albumName) },
+            apiCall = { remoteDataSource.getAlbumDetails(artistName, albumName) }, //TODO some album details not return right
             cacheCall = { localDataSource.getOneFavoriteAlbum(artistName, albumName) }
         ) {}.safeCall()
     }

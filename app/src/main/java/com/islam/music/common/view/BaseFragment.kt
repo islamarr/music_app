@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
@@ -16,7 +14,6 @@ import com.islam.music.common.Action
 import com.islam.music.common.BaseViewModel
 import com.islam.music.common.Result
 import com.islam.music.common.ViewState
-import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

@@ -1,7 +1,6 @@
 package com.islam.music.features.search.domain.usecases
 
-import com.islam.music.common.DataResponse
-import com.islam.music.features.main_screen.presentation.viewmodel.MainScreenResults
+import com.islam.music.common.data.DataResponse
 import com.islam.music.features.search.domain.repositories.SearchArtistRepository
 import com.islam.music.features.search.presentation.viewmodel.SearchResults
 import dagger.hilt.android.scopes.ViewModelScoped

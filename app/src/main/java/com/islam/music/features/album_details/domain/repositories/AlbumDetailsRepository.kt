@@ -1,6 +1,6 @@
 package com.islam.music.features.album_details.domain.repositories
 
-import com.islam.music.common.DataResponse
+import com.islam.music.common.data.DataResponse
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import com.islam.music.features.top_albums.domain.entites.Album
 

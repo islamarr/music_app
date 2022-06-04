@@ -2,7 +2,6 @@ package com.islam.music.features.album_details.data.remote.api
 
 import com.islam.music.BuildConfig
 import com.islam.music.features.album_details.domain.entites.AlbumDetailsResponse
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -55,7 +55,6 @@ class AlbumDetailsFragment :
 
     private fun loadImage(url: String?) {
         Glide.with(requireContext()).load(url)
-            // .placeholder(R.drawable.loading_img)
             .thumbnail(IMAGE_SIZE_MULTIPLIER)
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(binding.albumCoverImage)

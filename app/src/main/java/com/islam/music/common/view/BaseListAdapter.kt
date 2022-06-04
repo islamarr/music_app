@@ -1,4 +1,4 @@
-package com.islam.music.common
+package com.islam.music.common.view
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -26,7 +26,7 @@ abstract class BaseListAdapter<T>(callback: DiffUtil.ItemCallback<T> = BaseDiffC
 }
 
 open class BaseDiffCallback<T> : DiffUtil.ItemCallback<T>() {
-    override fun areItemsTheSame(oldItem: T, newItem: T) = oldItem == newItem
+    override fun areItemsTheSame(oldItem: T, newItem: T) = oldItem == newItem //TODO good to ignore this?
 
     @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: T, newItem: T) = oldItem == newItem

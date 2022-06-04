@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.islam.music.common.BaseListAdapter
 import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
 import com.islam.music.common.OnItemClickListener
+import com.islam.music.common.view.BaseListAdapter
 import com.islam.music.databinding.OneGeneralItemBinding
 import com.islam.music.features.top_albums.domain.entites.Album
 

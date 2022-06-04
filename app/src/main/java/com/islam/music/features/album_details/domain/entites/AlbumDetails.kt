@@ -14,6 +14,4 @@ data class AlbumDetails(  //TODO unify duplicated models
     val playcount: String, // 4025524
     val tags: Tags,
     val tracks: Tracks,
-    val url: String, // https://www.last.fm/music/Cher/Believe
-    val wiki: Wiki
 )

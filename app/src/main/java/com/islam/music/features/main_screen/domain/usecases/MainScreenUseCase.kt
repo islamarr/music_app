@@ -1,8 +1,7 @@
 package com.islam.music.features.main_screen.domain.usecases
 
-import com.islam.music.common.DataResponse
+import com.islam.music.common.data.DataResponse
 import com.islam.music.features.album_details.domain.repositories.AlbumDetailsRepository
-import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsResults
 import com.islam.music.features.main_screen.presentation.viewmodel.MainScreenResults
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject

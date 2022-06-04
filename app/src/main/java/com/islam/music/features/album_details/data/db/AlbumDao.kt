@@ -1,8 +1,7 @@
-package com.islam.music.features.album_details.data.db.datasource
+package com.islam.music.features.album_details.data.db
 
 import androidx.room.*
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
-import kotlinx.coroutines.flow.StateFlow
 
 
 @Dao

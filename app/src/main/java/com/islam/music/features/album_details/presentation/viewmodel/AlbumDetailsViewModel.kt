@@ -21,7 +21,6 @@ class AlbumDetailsViewModel @Inject constructor(private val useCase: AlbumDetail
                 result.albumDetails
             )
             is AlbumDetailsResults.Loading -> AlbumDetailsStates.Loading
-            is AlbumDetailsResults.LocalAlbumDetails -> TODO()
         }
 
     override fun handle(actions: AlbumDetailsActions): Flow<AlbumDetailsResults> = flow {

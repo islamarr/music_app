@@ -1,4 +1,4 @@
-package com.islam.music.features.album_details.data.db.datasource
+package com.islam.music.features.album_details.data.db
 
 import android.content.Context
 import androidx.room.Database

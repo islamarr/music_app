@@ -1,4 +1,4 @@
-package com.islam.music.features.album_details.data.db.datasource
+package com.islam.music.features.album_details.data.db
 
 import com.islam.music.features.album_details.domain.entites.AlbumDetails
 import com.islam.music.features.album_details.domain.entites.AlbumEntity

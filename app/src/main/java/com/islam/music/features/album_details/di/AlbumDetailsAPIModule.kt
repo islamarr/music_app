@@ -1,7 +1,6 @@
 package com.islam.music.features.album_details.di
 
 import com.islam.music.features.album_details.data.remote.api.AlbumDetailsAPIService
-import com.islam.music.features.top_albums.data.remote.api.TopAlbumsAPIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

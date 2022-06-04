@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.islam.music.R
 import com.islam.music.common.OnItemClickListener
 import com.islam.music.common.gone
+import com.islam.music.common.setKeyboardVisibility
 import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentSearchBinding
@@ -101,6 +102,7 @@ class SearchFragment :
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        setKeyboardVisibility(isShow = false)
         query?.let {
             searchArtistByName(it)
         }
@@ -108,13 +110,11 @@ class SearchFragment :
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        newText?.let {
-            Log.d("TAG", "onQueryTextChange: $it")
-        }
         return true
     }
 
     override fun onClick(albumName: String?, artistName: String?) {
+        setKeyboardVisibility(isShow = false)
         artistName?.let {
             findNavController()
                 .navigate(SearchFragmentDirections.actionSearchFragmentToTopAlbumsFragment(it))

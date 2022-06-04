@@ -1,4 +1,4 @@
-package com.islam.music.common
+package com.islam.music.common.data
 
 
 sealed class DataResponse<T> {

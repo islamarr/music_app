@@ -1,4 +1,4 @@
-package com.islam.music.features.album_details.data.db.datasource
+package com.islam.music.features.album_details.data.db
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

@@ -9,6 +9,8 @@ data class Track(
     val attr: Attr,
     val duration: Int, // 239
     val name: String, // Believe
-    val streamable: Streamable,
-    val url: String // https://www.last.fm/music/Cher/Believe/Believe
+)
+
+data class Attr(
+    val rank: Int // 1
 )

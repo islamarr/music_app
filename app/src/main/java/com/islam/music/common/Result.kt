@@ -1,3 +1,3 @@
 package com.islam.music.common
 
-interface Result
+interface Result //TODO remove result if not needed

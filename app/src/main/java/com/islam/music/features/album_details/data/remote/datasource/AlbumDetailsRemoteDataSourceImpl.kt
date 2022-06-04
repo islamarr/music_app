@@ -1,6 +1,6 @@
 package com.islam.music.features.album_details.data.remote.datasource
 
-import com.islam.music.features.album_details.data.db.datasource.AlbumDetailsToAlbumMapper
+import com.islam.music.features.album_details.data.db.AlbumDetailsToAlbumMapper
 import com.islam.music.features.album_details.data.remote.api.AlbumDetailsAPIService
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import javax.inject.Inject

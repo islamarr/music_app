@@ -6,8 +6,6 @@ import com.squareup.moshi.Json
 data class Results(
     @field:Json(name = "artistmatches")
     val artists: Artistmatches,
-    @field:Json(name = "@attr")
-    val attr: Attr,
     @field:Json(name = "opensearch:itemsPerPage")
     val opensearchItemsPerPage: String, // 30
     @field:Json(name = "opensearch:Query")

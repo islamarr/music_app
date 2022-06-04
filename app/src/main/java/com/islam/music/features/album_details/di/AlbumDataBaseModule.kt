@@ -1,8 +1,8 @@
 package com.islam.music.features.album_details.di
 
 import android.content.Context
-import com.islam.music.features.album_details.data.db.datasource.AlbumDao
-import com.islam.music.features.album_details.data.db.datasource.AlbumDatabase
+import com.islam.music.features.album_details.data.db.AlbumDao
+import com.islam.music.features.album_details.data.db.AlbumDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
