@@ -13,7 +13,7 @@ class Converters {
         @TypeConverter
         @JvmStatic
         fun fromStringToList(data: String?): List<Track> {
-            val gson = Gson() //TODO can we use Moshi
+            val gson = Gson()
             if (data == null) {
                 return Collections.emptyList()
             }

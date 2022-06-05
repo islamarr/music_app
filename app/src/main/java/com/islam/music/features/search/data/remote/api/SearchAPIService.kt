@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface SearchAPIService {
 
-    @GET("?method=artist.search&format=json&api_key=${BuildConfig.API_KEY}") //TODO interceptor
+    @GET("?method=artist.search&format=json&api_key=${BuildConfig.API_KEY}")
     suspend fun searchByArtist(
         @Query("artist") artist: String,
         @Query("page") page: Int

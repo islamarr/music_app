@@ -18,7 +18,6 @@ import com.islam.music.common.setKeyboardVisibility
 import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentSearchBinding
-import com.islam.music.features.search.domain.entites.Artist
 import com.islam.music.features.search.presentation.viewmodel.SearchActions
 import com.islam.music.features.search.presentation.viewmodel.SearchStates
 import com.islam.music.features.search.presentation.viewmodel.SearchViewModel
@@ -32,14 +31,13 @@ class SearchFragment :
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate
+
     override fun screenTitle() = getString(R.string.search_screen_title)
 
     override val viewModel: SearchViewModel by viewModels()
     private lateinit var artistsAdapter: ArtistsAdapter
     private var queryTyped = ""
     private var isReachBottom = false
-    private var currentPage = 1
-    private var artistList = mutableListOf<Artist>()
 
     override fun setupOnViewCreated() {
         initRecyclerView()
@@ -53,15 +51,13 @@ class SearchFragment :
         }
     }
 
-    private fun searchArtistByName() {
-        isReachBottom = false //TODO logic should be in usecase
-        currentPage = 1
-        artistList.clear()
-        viewModel.dispatch(SearchActions.SearchArtistByName(query = queryTyped))
-    }
-
-    private fun loadMore() {
-        viewModel.dispatch(SearchActions.LoadMore(query = queryTyped, page = ++currentPage))
+    private fun loadArtistList(isLoadMore: Boolean = false) {
+        viewModel.dispatch(
+            SearchActions.SearchArtistByName(
+                query = queryTyped,
+                isLoadMore = isLoadMore
+            )
+        )
     }
 
     private fun showEmptyList(show: Boolean) {
@@ -75,17 +71,14 @@ class SearchFragment :
             is SearchStates.InitialState -> Log.d("TAG", "InitialState: ")
             is SearchStates.Loading -> binding.container.loading.visible()
             is SearchStates.ArtistListLoaded -> {
-                isReachBottom =
-                    (it.result.startIndex + (currentPage * it.result.itemsPerPage.toInt())) >= it.result.totalResults
                 showEmptyList(false)
-                artistList.addAll(it.result.artists.artist)
-                artistsAdapter.submitList(artistList.toList())
+                isReachBottom = it.isReachBottom
+                artistsAdapter.submitList(it.result.toList())
             }
             is SearchStates.EmptyArtistList -> {
                 showEmptyList(true)
-                // binding.retryBtn.gone()
-                binding.container.resultStatusText.text =
-                    getString(R.string.no_data_to_show) //TODO review
+                // binding.retryBtn.gone() //TODO retry
+                binding.container.resultStatusText.text = getString(R.string.no_data_to_show)
             }
             is SearchStates.ShowErrorMessage -> {
                 showEmptyList(true)
@@ -98,7 +91,7 @@ class SearchFragment :
         binding.container.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (!recyclerView.canScrollVertically(1) && !binding.container.loading.isVisible && !isReachBottom) {
-                    loadMore()
+                    loadArtistList(isLoadMore = true)
                 }
             }
         })
@@ -131,7 +124,7 @@ class SearchFragment :
         setKeyboardVisibility(isShow = false)
         query?.let {
             queryTyped = it
-            searchArtistByName()
+            loadArtistList()
         }
         return true
     }

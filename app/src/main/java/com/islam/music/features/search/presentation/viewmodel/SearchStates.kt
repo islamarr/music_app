@@ -1,6 +1,7 @@
 package com.islam.music.features.search.presentation.viewmodel
 
 import com.islam.music.common.ViewState
+import com.islam.music.features.search.domain.entites.Artist
 import com.islam.music.features.search.domain.entites.ArtistResults
 
 
@@ -10,6 +11,6 @@ sealed class SearchStates : ViewState {
     data class ShowErrorMessage(val reason: String? = null) :
         SearchStates()
 
-    data class ArtistListLoaded(val result: ArtistResults) : SearchStates()
+    data class ArtistListLoaded(val result: List<Artist>, val isReachBottom: Boolean) : SearchStates()
     object EmptyArtistList : SearchStates()
 }

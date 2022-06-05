@@ -15,9 +15,8 @@ class SearchViewModel @Inject constructor(private val useCase: SearchArtistUseCa
         emit(SearchStates.Loading)
         when (actions) {
             is SearchActions.SearchArtistByName -> {
-                emit(useCase.execute(actions.query, 1))
+                emit(useCase.execute(actions.query, actions.isLoadMore))
             }
-            is SearchActions.LoadMore -> emit(useCase.execute(actions.query, actions.page))
         }
     }
 
