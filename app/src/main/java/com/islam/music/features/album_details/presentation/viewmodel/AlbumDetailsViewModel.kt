@@ -16,8 +16,9 @@ class AlbumDetailsViewModel @Inject constructor(private val useCase: AlbumDetail
             is AlbumDetailsActions.AlbumDetailsAction -> {
                 emit(AlbumDetailsStates.Loading)
                 emit(useCase.execute(actions.artistName, actions.albumName))
+                emit(useCase.getFavorite(actions.artistName, actions.albumName))
             }
-            is AlbumDetailsActions.Save -> useCase.save(actions.albumEntity)
+            is AlbumDetailsActions.SetFavoriteAction -> useCase.setFavorite(actions.isAdd, actions.albumEntity)
         }
     }
 

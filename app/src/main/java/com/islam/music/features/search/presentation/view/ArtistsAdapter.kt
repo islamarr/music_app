@@ -10,12 +10,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.islam.music.R
 import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
-import com.islam.music.common.OnItemClickListener
 import com.islam.music.common.view.BaseListAdapter
 import com.islam.music.databinding.OneGeneralItemBinding
 import com.islam.music.features.search.domain.entites.Artist
 
-class ArtistsAdapter(private val onItemClickListener: OnItemClickListener) :
+class ArtistsAdapter(private val onSearchItemClickListener: OnSearchItemClickListener) :
     BaseListAdapter<Artist>(ArtistDiffUtil()) {
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewBinding {
@@ -32,7 +31,7 @@ class ArtistsAdapter(private val onItemClickListener: OnItemClickListener) :
         loadImage(itemView.context, item.images[0].url, binding)
 
         itemView.setOnClickListener {
-            onItemClickListener.onClick(artistName = item.name)
+            onSearchItemClickListener.onClick(artistName = item.name)
         }
     }
 

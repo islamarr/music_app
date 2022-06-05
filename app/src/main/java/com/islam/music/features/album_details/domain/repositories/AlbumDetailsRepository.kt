@@ -13,4 +13,8 @@ interface AlbumDetailsRepository {
     suspend fun addToFavoriteList(album: AlbumEntity)
     suspend fun removeFromFavoriteList(album: AlbumEntity)
     suspend fun getFavoriteList(): DataResponse<List<Album>>
+    suspend fun getOneFavoriteAlbum(
+        artistName: String,
+        albumName: String
+    ): DataResponse<AlbumEntity>
 }

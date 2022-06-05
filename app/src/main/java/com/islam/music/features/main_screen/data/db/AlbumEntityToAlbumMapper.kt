@@ -9,7 +9,7 @@ class AlbumEntityToAlbumMapper {
 
     fun map(albumEntity: AlbumEntity): Album {
         return Album(
-            name = albumEntity.albumName!!,
+            albumName = albumEntity.albumName!!,
             images = listOf(Image("", albumEntity.coverImageUrl!!)),
             id = albumEntity.id.toString(),
             artist = Artist(name = albumEntity.artistName!!)

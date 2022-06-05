@@ -13,7 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.islam.music.R
-import com.islam.music.common.OnItemClickListener
 import com.islam.music.common.gone
 import com.islam.music.common.setKeyboardVisibility
 import com.islam.music.common.view.BaseFragment
@@ -29,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment :
     BaseFragment<FragmentSearchBinding, SearchStates, SearchActions>(),
     SearchView.OnQueryTextListener,
-    OnItemClickListener {  // TODO set res file style ( strings - dimen - ... ) + make references for everything
+    OnSearchItemClickListener {  // TODO set res file style ( strings - dimen - ... ) + make references for everything
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate
@@ -85,7 +84,8 @@ class SearchFragment :
             is SearchStates.EmptyArtistList -> {
                 showEmptyList(true)
                 // binding.retryBtn.gone()
-                binding.container.resultStatusText.text = getString(R.string.no_data_to_show) //TODO review
+                binding.container.resultStatusText.text =
+                    getString(R.string.no_data_to_show) //TODO review
             }
             is SearchStates.ShowErrorMessage -> {
                 showEmptyList(true)
@@ -140,12 +140,10 @@ class SearchFragment :
         return true
     }
 
-    override fun onClick(albumName: String?, artistName: String?) {
+    override fun onClick(artistName: String) {
         setKeyboardVisibility(isShow = false)
-        artistName?.let {
-            findNavController()
-                .navigate(SearchFragmentDirections.actionSearchFragmentToTopAlbumsFragment(it))
-        }
+        findNavController()
+            .navigate(SearchFragmentDirections.actionSearchFragmentToTopAlbumsFragment(artistName))
     }
 
 }

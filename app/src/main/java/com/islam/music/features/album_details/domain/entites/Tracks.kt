@@ -5,5 +5,5 @@ import com.squareup.moshi.Json
 
 data class Tracks(
     @field:Json(name = "track")
-    val trackList: List<Track>
+    val trackList: List<Track> = listOf()
 )

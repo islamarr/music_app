@@ -10,8 +10,8 @@ interface AlbumDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addToFavoriteList(album: AlbumEntity): Long
 
-    @Delete
-    suspend fun removeFromFavoriteList(album: AlbumEntity)
+    @Query("DELETE FROM album WHERE artistName = :artistName and albumName = :albumName")
+    suspend fun removeFromFavoriteList(albumName: String?, artistName: String?)
 
     @Query("SELECT * FROM album")
     fun getFavoriteList(): List<AlbumEntity>

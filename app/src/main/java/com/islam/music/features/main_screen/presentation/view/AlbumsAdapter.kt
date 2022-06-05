@@ -28,11 +28,15 @@ class AlbumsAdapter(private val onItemClickListener: OnItemClickListener) :
 
     override fun bind(viewBinding: ViewBinding, item: Album, itemView: View) {
         val binding = viewBinding as OneGeneralItemBinding
-        binding.title.text = item.name
+        binding.title.text = item.albumName
         loadImage(itemView.context, item.images[0].url, binding)
 
         itemView.setOnClickListener {
-            onItemClickListener.onClick(albumName = item.name, artistName = item.artist.name)
+            onItemClickListener.onClick(
+                albumName = item.albumName,
+                artistName = item.artist.name,
+                imgUrl = item.images[0].url
+            )
         }
     }
 

@@ -18,7 +18,7 @@ class AlbumDetailsUseCase @Inject constructor(private val repository: AlbumDetai
 
             is DataResponse.Success -> {
                 response.data?.let {
-                    AlbumDetailsStates.AlbumDetailsData(it) //TODO inject mapper
+                    AlbumDetailsStates.AlbumDetailsData(it, it.trackList.isEmpty())
                 } ?: AlbumDetailsStates.ShowErrorMessage()
             }
             is DataResponse.Failure -> {
@@ -30,9 +30,20 @@ class AlbumDetailsUseCase @Inject constructor(private val repository: AlbumDetai
 
     }
 
+    suspend fun getFavorite(artistName: String, albumName: String) : AlbumDetailsStates {
+         return when (repository.getOneFavoriteAlbum(artistName, albumName)){
+             is DataResponse.Success -> {
+                 AlbumDetailsStates.SavedState(true)
+             }
+             is DataResponse.Failure -> {
+                 AlbumDetailsStates.SavedState(false)
+             }
+         }
+    }
 
-    suspend fun save(albumEntity: AlbumEntity) {//TODO new use case
-        repository.addToFavoriteList(albumEntity)
+    suspend fun setFavorite(isAdd: Boolean, albumEntity: AlbumEntity) {
+        if (isAdd) repository.addToFavoriteList(albumEntity)
+        else repository.removeFromFavoriteList(albumEntity)
     }
 
 }

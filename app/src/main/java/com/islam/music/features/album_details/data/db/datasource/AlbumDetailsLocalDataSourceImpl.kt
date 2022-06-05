@@ -13,7 +13,7 @@ class AlbumDetailsLocalDataSourceImpl @Inject constructor(private val albumDao: 
     }
 
     override suspend fun removeFromFavoriteList(album: AlbumEntity) {
-        albumDao.removeFromFavoriteList(album)
+        albumDao.removeFromFavoriteList(album.albumName, album.artistName)
     }
 
     override fun getFavoriteList(): List<Album> {

@@ -26,8 +26,10 @@ class TrackAdapter :
         binding.subtitle.text = item.duration.toString()
         binding.nextBtn.gone()
         binding.itemImage.gone()
-        val trackTime = String.format("%02d:%02d", item.duration / 60, item.duration % 60)
-        binding.subtitle.text = trackTime
+        item.duration?.let {
+            val trackTime = String.format("%02d:%02d", it / 60, it % 60)
+            binding.subtitle.text = trackTime
+        }
     }
 
 }

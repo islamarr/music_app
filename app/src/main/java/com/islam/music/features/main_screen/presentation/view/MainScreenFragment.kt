@@ -60,7 +60,6 @@ class MainScreenFragment :
             }
             is MainScreenStates.EmptyTopAlbumsList -> {
                 showEmptyList(true)
-                // binding.retryBtn.gone()
                 binding.container.resultStatusText.text = getString(R.string.no_data_to_show)
             }
             is MainScreenStates.ShowErrorMessage -> {
@@ -84,13 +83,14 @@ class MainScreenFragment :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onClick(albumName: String?, artistName: String?) {
+    override fun onClick(albumName: String?, artistName: String?, imgUrl: String?) {
         if (albumName != null && artistName != null) {
             findNavController()
                 .navigate(
                     MainScreenFragmentDirections.actionMainScreenFragmentToAlbumDetailsFragment(
                         artistName,
-                        albumName
+                        albumName,
+                        imgUrl
                     )
                 )
         }

@@ -4,13 +4,13 @@ import com.squareup.moshi.Json
 
 
 data class Track(
-    val artist: Artist,
+    val artist: Artist = Artist(),
     @field:Json(name = "@attr")
-    val attr: Attr,
-    val duration: Int, // 239
-    val name: String, // Believe
+    val attr: Attr = Attr(),
+    val duration: Int? = 0, // 239
+    val name: String? = null, // Believe
 )
 
 data class Attr(
-    val rank: Int // 1
+    val rank: Int? = 0 // 1
 )

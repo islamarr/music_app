@@ -6,8 +6,9 @@
     <string name="top_albums_screen_title">Top Albums %1$s</string>
     <string name="album_details_screen_title">Album Details</string>
     <string name="search_hint">Search for artist</string>
-    <string name="no_data_to_show">no fav</string>
+    <string name="no_data_to_show">Here will see your favorite albums</string>
     <string name="tracks_title">Tracks</string>
     <string name="album_image">albumImage</string>
     <string name="error_message">Something went wrong. please try again</string>
+    <string name="no_tracks">No tracks available</string>
 </resources>

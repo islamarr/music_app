@@ -78,13 +78,14 @@ class TopAlbumsFragment :
         }
     }
 
-    override fun onClick(albumName: String?, artistName: String?) {
+    override fun onClick(albumName: String?, artistName: String?, imgUrl: String?) {
         albumName?.let {
             findNavController()
                 .navigate(
                     TopAlbumsFragmentDirections.actionTopAlbumsFragmentToAlbumDetailsFragment(
                         args.artistName,
-                        it
+                        it,
+                        imgUrl
                     )
                 )
         }

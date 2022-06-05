@@ -35,6 +35,7 @@
         android:layout_margin="15dp"
         android:background="@drawable/ic_favorite"
         android:button="@null"
+        android:visibility="invisible"
         app:buttonCompat="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +44,7 @@
         android:id="@+id/albumName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:textSize="22sp"
@@ -70,8 +71,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:maxLines="1"
-        android:textColor="@color/purple_700"
         android:text="@string/tracks_title"
+        android:textColor="@color/purple_700"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@id/albumCoverImage"
         app:layout_constraintRight_toRightOf="@id/albumCoverImage"
@@ -87,5 +88,17 @@
         app:layout_constraintTop_toBottomOf="@id/tracksTitle"
         tools:listitem="@layout/one_general_item" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/resultStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_tracks"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tracksTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,12 +13,12 @@ class AlbumDetailsRemoteDataSourceImpl @Inject constructor(private val apiServic
         albumName: String
     ): AlbumEntity {
 
-           return AlbumDetailsToAlbumMapper().map(
-                apiService.getAlbumDetails(
-                    artistName,
-                    albumName
-                ).album
-            ) //TODO change map parameter
+        return AlbumDetailsToAlbumMapper().map(
+            apiService.getAlbumDetails(
+                artistName,
+                albumName
+            ).album
+        ) //TODO change map parameter
 
     }
 }

@@ -19,7 +19,7 @@ class AlbumDetailsRepositoryImpl @Inject constructor(
         albumName: String
     ): DataResponse<AlbumEntity> {
         return object : SafeServiceCall<AlbumEntity>(
-            apiCall = { remoteDataSource.getAlbumDetails(artistName, albumName) }, //TODO some album details not return right
+            apiCall = { remoteDataSource.getAlbumDetails(artistName, albumName) },
             cacheCall = { localDataSource.getOneFavoriteAlbum(artistName, albumName) }
         ) {}.safeCall()
     }
@@ -35,6 +35,15 @@ class AlbumDetailsRepositoryImpl @Inject constructor(
     override suspend fun getFavoriteList(): DataResponse<List<Album>> {
         return object : SafeServiceCall<List<Album>>(
             cacheCall = { localDataSource.getFavoriteList() }
+        ) {}.safeCall()
+    }
+
+    override suspend fun getOneFavoriteAlbum(
+        artistName: String,
+        albumName: String
+    ): DataResponse<AlbumEntity> {
+        return object : SafeServiceCall<AlbumEntity>(
+            cacheCall = { localDataSource.getOneFavoriteAlbum(artistName, albumName) }
         ) {}.safeCall()
     }
 

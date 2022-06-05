@@ -34,6 +34,11 @@
             app:argType="string"
             app:nullable="false" />
 
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            app:nullable="true" />
+
     </fragment>
 
     <fragment

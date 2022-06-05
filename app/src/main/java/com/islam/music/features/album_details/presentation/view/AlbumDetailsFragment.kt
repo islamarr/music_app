@@ -32,18 +32,20 @@ class AlbumDetailsFragment :
     override val viewModel: AlbumDetailsViewModel by viewModels()
     private val args: AlbumDetailsFragmentArgs by navArgs()
     private var albumEntity = AlbumEntity()
+    private var isFav: Boolean = false
 
     override fun setupOnViewCreated() {
         initRecyclerView()
         setArgumentsData()
         binding.addToFavorite.setOnClickListener {
-            viewModel.dispatch(AlbumDetailsActions.Save(albumEntity))
+            viewModel.dispatch(AlbumDetailsActions.SetFavoriteAction(!isFav, albumEntity))
         }
     }
 
-    private fun setArgumentsData() { //TODO load Image
+    private fun setArgumentsData() {
         binding.albumName.text = args.albumName
         binding.albumArtistName.text = args.artistName
+        loadImage(args.imageUrl)
     }
 
     private fun initRecyclerView() {
@@ -68,7 +70,7 @@ class AlbumDetailsFragment :
 
     private fun showEmptyList(show: Boolean) {
         binding.loading.gone()
-        // binding.resultStatusText.isVisible = show
+        binding.resultStatusText.isVisible = show
         binding.albumTrackList.isVisible = !show
     }
 
@@ -77,14 +79,18 @@ class AlbumDetailsFragment :
             is AlbumDetailsStates.InitialState -> loadAlbumDetails(args.artistName, args.albumName)
             is AlbumDetailsStates.Loading -> binding.loading.visible()
             is AlbumDetailsStates.AlbumDetailsData -> {
-                showEmptyList(false)
+                showEmptyList(it.isTrackListEmpty)
                 trackAdapter.submitList(it.albumDetails.trackList)
-                loadImage(it.albumDetails.coverImageUrl)
                 albumEntity = it.albumDetails
             }
             is AlbumDetailsStates.ShowErrorMessage -> {
                 showEmptyList(true)
-                //  binding.resultStatusText.text = getString(R.string.error_message) //TODO handle this
+                binding.resultStatusText.text = getString(R.string.error_message)
+            }
+            is AlbumDetailsStates.SavedState -> {
+                binding.addToFavorite.visible()
+                isFav = it.isSaved
+                binding.addToFavorite.isChecked = isFav
             }
         }
     }
