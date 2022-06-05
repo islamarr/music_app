@@ -1,4 +1,4 @@
 package com.islam.music.features.search.domain.entites
 
 
-data class ArtistResponse(val results: Results)
+data class ArtistResponse(val results: ArtistResults)

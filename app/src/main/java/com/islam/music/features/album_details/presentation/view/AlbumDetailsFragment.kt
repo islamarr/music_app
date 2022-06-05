@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.islam.music.R
 import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
 import com.islam.music.common.gone
@@ -40,7 +41,7 @@ class AlbumDetailsFragment :
         }
     }
 
-    private fun setArgumentsData() {
+    private fun setArgumentsData() { //TODO load Image
         binding.albumName.text = args.albumName
         binding.albumArtistName.text = args.artistName
     }
@@ -54,8 +55,10 @@ class AlbumDetailsFragment :
 
     private fun loadImage(url: String?) {
         Glide.with(requireContext()).load(url)
+            .placeholder(R.drawable.ic_placeholder)
+            .transition(DrawableTransitionOptions.withCrossFade())
             .thumbnail(IMAGE_SIZE_MULTIPLIER)
-            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.albumCoverImage)
     }
 

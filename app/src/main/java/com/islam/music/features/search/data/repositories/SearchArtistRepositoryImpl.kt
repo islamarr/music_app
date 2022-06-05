@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class SearchArtistRepositoryImpl @Inject constructor(private val dataSource: SearchArtistDataSource) :
     SearchArtistRepository {
-    override suspend fun searchArtist(query: String): DataResponse<ArtistResponse> {
+    override suspend fun searchArtist(query: String, page: Int): DataResponse<ArtistResponse> {
         return object : SafeServiceCall<ArtistResponse>(
-            apiCall = { dataSource.searchArtist(query) },
+            apiCall = { dataSource.searchArtist(query, page) },
         ) {}.safeCall()
     }
 }

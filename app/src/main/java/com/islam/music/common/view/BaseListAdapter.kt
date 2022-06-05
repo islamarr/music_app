@@ -26,7 +26,7 @@ abstract class BaseListAdapter<T>(callback: DiffUtil.ItemCallback<T> = BaseDiffC
 }
 
 open class BaseDiffCallback<T> : DiffUtil.ItemCallback<T>() {
-    override fun areItemsTheSame(oldItem: T, newItem: T) = oldItem == newItem //TODO good to ignore this?
+    override fun areItemsTheSame(oldItem: T, newItem: T) = oldItem == newItem
 
     @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: T, newItem: T) = oldItem == newItem

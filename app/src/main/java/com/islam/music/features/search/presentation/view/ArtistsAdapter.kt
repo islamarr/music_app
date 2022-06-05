@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.islam.music.R
 import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
 import com.islam.music.common.OnItemClickListener
 import com.islam.music.common.view.BaseListAdapter
@@ -36,8 +38,10 @@ class ArtistsAdapter(private val onItemClickListener: OnItemClickListener) :
 
     private fun loadImage(context: Context, url: String, binding: OneGeneralItemBinding) {
         Glide.with(context).load(url)
+            .placeholder(R.drawable.ic_placeholder)
+            .transition(DrawableTransitionOptions.withCrossFade())
             .thumbnail(IMAGE_SIZE_MULTIPLIER)
-            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.itemImage)
     }
 

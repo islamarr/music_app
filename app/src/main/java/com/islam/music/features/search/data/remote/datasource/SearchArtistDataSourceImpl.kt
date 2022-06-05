@@ -6,8 +6,8 @@ import javax.inject.Inject
 
 class SearchArtistDataSourceImpl @Inject constructor(private val searchAPIService: SearchAPIService) :
     SearchArtistDataSource {
-    override suspend fun searchArtist(query: String) :ArtistResponse {
-        return searchAPIService.searchByArtist(query, 1) //TODO paging
+    override suspend fun searchArtist(query: String, page: Int) :ArtistResponse {
+        return searchAPIService.searchByArtist(query, page)
 
     }
 }
