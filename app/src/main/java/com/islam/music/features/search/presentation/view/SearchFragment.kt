@@ -32,7 +32,7 @@ class SearchFragment :
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate
-    override var screenTitle = R.string.search_screen_title
+    override fun screenTitle() = getString(R.string.search_screen_title)
 
     override val viewModel: SearchViewModel by viewModels()
     private lateinit var artistsAdapter: ArtistsAdapter
@@ -140,10 +140,12 @@ class SearchFragment :
         return true
     }
 
-    override fun onClick(artistName: String) {
+    override fun onClick(artistName: String?) {
         setKeyboardVisibility(isShow = false)
-        findNavController()
-            .navigate(SearchFragmentDirections.actionSearchFragmentToTopAlbumsFragment(artistName))
+        artistName?.let {
+            findNavController()
+                .navigate(SearchFragmentDirections.actionSearchFragmentToTopAlbumsFragment(it))
+        }
     }
 
 }

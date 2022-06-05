@@ -2,7 +2,6 @@ package com.islam.music.features.search.presentation.viewmodel
 
 import com.islam.music.common.view.BaseViewModel
 import com.islam.music.features.search.domain.usecases.SearchArtistUseCase
-import com.islam.music.features.top_albums.domain.entites.Artist
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

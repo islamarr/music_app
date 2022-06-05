@@ -30,7 +30,7 @@ abstract class BaseFragment<viewBinding : ViewBinding, STATES : ViewState, ACTIO
 
     abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> viewBinding
 
-    abstract var screenTitle: Int
+    abstract fun screenTitle(): String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,9 +49,8 @@ abstract class BaseFragment<viewBinding : ViewBinding, STATES : ViewState, ACTIO
         startObserver()
     }
 
-    fun setToolbarTitle() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title =
-            (requireActivity() as AppCompatActivity).resources.getString(screenTitle)
+    private fun setToolbarTitle() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = screenTitle()
     }
 
     abstract fun setupOnViewCreated()

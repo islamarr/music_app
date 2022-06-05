@@ -23,7 +23,6 @@ class TrackAdapter :
     override fun bind(viewBinding: ViewBinding, item: Track, itemView: View) {
         val binding = viewBinding as OneGeneralItemBinding
         binding.title.text = item.name
-        binding.subtitle.text = item.duration.toString()
         binding.nextBtn.gone()
         binding.itemImage.gone()
         item.duration?.let {

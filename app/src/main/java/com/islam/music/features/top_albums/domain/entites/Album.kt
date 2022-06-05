@@ -1,5 +1,7 @@
 package com.islam.music.features.top_albums.domain.entites
 
+import com.islam.music.features.search.domain.entites.Artist
+import com.islam.music.features.search.domain.entites.Image
 import com.squareup.moshi.Json
 
 

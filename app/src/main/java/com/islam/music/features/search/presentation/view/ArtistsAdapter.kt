@@ -28,14 +28,14 @@ class ArtistsAdapter(private val onSearchItemClickListener: OnSearchItemClickLis
     override fun bind(viewBinding: ViewBinding, item: Artist, itemView: View) {
         val binding = viewBinding as OneGeneralItemBinding
         binding.title.text = item.name
-        loadImage(itemView.context, item.images[0].url, binding)
+        loadImage(itemView.context, item.images?.get(0)?.url, binding)
 
         itemView.setOnClickListener {
             onSearchItemClickListener.onClick(artistName = item.name)
         }
     }
 
-    private fun loadImage(context: Context, url: String, binding: OneGeneralItemBinding) {
+    private fun loadImage(context: Context, url: String?, binding: OneGeneralItemBinding) {
         Glide.with(context).load(url)
             .placeholder(R.drawable.ic_placeholder)
             .transition(DrawableTransitionOptions.withCrossFade())

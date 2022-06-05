@@ -1,5 +1,5 @@
 package com.islam.music.features.search.presentation.view
 
 interface OnSearchItemClickListener {
-    fun onClick(artistName: String)
+    fun onClick(artistName: String?)
 }

@@ -24,15 +24,16 @@ import dagger.hilt.android.AndroidEntryPoint
 class AlbumDetailsFragment :
     BaseFragment<FragmentAlbumDetailsBinding, AlbumDetailsStates, AlbumDetailsActions>() { //TODO add back btn in toolbar
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAlbumDetailsBinding
-        get() = FragmentAlbumDetailsBinding::inflate
-    override var screenTitle = R.string.album_details_screen_title // TODO edit title
-
-    private lateinit var trackAdapter: TrackAdapter
-    override val viewModel: AlbumDetailsViewModel by viewModels()
     private val args: AlbumDetailsFragmentArgs by navArgs()
     private var albumEntity = AlbumEntity()
     private var isFavorite: Boolean = false
+    private lateinit var trackAdapter: TrackAdapter
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAlbumDetailsBinding
+        get() = FragmentAlbumDetailsBinding::inflate
+    override fun screenTitle() = getString(R.string.album_details_screen_title, args.albumName)
+    override val viewModel: AlbumDetailsViewModel by viewModels()
+
 
     override fun setupOnViewCreated() {
         initRecyclerView()
@@ -80,16 +81,16 @@ class AlbumDetailsFragment :
             is AlbumDetailsStates.InitialState -> loadAlbumDetails(args.artistName, args.albumName)
             is AlbumDetailsStates.Loading -> binding.loading.visible()
             is AlbumDetailsStates.AlbumDetailsData -> {
+                binding.addToFavorite.visible()
                 showEmptyList(it.isTrackListEmpty)
                 trackAdapter.submitList(it.albumDetails.trackList)
                 albumEntity = it.albumDetails
             }
             is AlbumDetailsStates.ShowErrorMessage -> {
                 showEmptyList(true)
-                binding.resultStatusText.text = getString(R.string.error_message)
+                binding.resultStatusText.text = getString(R.string.no_tracks)
             }
             is AlbumDetailsStates.SavedState -> {
-                binding.addToFavorite.visible()
                 isFavorite = it.isSaved
                 binding.addToFavorite.isChecked = isFavorite
             }

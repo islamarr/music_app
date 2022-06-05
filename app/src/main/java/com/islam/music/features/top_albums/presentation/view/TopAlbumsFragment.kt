@@ -23,22 +23,16 @@ class TopAlbumsFragment :
     BaseFragment<FragmentTopAlbumsBinding, TopAlbumsStates, TopAlbumsActions>(),
     OnItemClickListener {
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTopAlbumsBinding
-        get() = FragmentTopAlbumsBinding::inflate
-    override var screenTitle = R.string.top_albums_screen_title
+    private val args: TopAlbumsFragmentArgs by navArgs()
+    private lateinit var albumsAdapter: AlbumsAdapter
 
     override val viewModel: TopAlbumsViewModel by viewModels()
-    private lateinit var albumsAdapter: AlbumsAdapter
-    private val args: TopAlbumsFragmentArgs by navArgs()
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTopAlbumsBinding
+        get() = FragmentTopAlbumsBinding::inflate
+    override fun screenTitle() = getString(R.string.top_albums_screen_title, args.artistName)
 
     override fun setupOnViewCreated() {
         initRecyclerView()
-        updateTitle()
-    }
-
-    private fun updateTitle() { //TODO add name + title
-        screenTitle = R.string.top_albums_screen_title
-        setToolbarTitle()
     }
 
     private fun initRecyclerView() {

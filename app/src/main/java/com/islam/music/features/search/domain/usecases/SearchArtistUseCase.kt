@@ -3,7 +3,6 @@ package com.islam.music.features.search.domain.usecases
 import com.islam.music.common.data.DataResponse
 import com.islam.music.features.search.domain.repositories.SearchArtistRepository
 import com.islam.music.features.search.presentation.viewmodel.SearchStates
-import com.islam.music.features.top_albums.domain.entites.Artist
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 

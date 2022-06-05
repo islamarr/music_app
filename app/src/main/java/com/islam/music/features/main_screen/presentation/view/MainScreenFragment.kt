@@ -23,7 +23,7 @@ class MainScreenFragment :
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainScreenBinding
         get() = FragmentMainScreenBinding::inflate
-    override var screenTitle = R.string.main_screen_title
+    override fun screenTitle() = getString(R.string.main_screen_title)
 
     override val viewModel: MainScreenViewModel by viewModels()
     private lateinit var albumsAdapter: AlbumsAdapter
