@@ -14,14 +14,13 @@ import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentTopAlbumsBinding
 import com.islam.music.features.main_screen.presentation.view.AlbumsAdapter
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsActions
-import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsResults
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsStates
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TopAlbumsFragment :
-    BaseFragment<FragmentTopAlbumsBinding, TopAlbumsStates, TopAlbumsActions, TopAlbumsResults>(),
+    BaseFragment<FragmentTopAlbumsBinding, TopAlbumsStates, TopAlbumsActions>(),
     OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTopAlbumsBinding

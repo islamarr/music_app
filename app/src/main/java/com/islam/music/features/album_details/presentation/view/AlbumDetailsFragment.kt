@@ -15,14 +15,13 @@ import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentAlbumDetailsBinding
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsActions
-import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsResults
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsStates
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AlbumDetailsFragment :
-    BaseFragment<FragmentAlbumDetailsBinding, AlbumDetailsStates, AlbumDetailsActions, AlbumDetailsResults>() { //TODO add back btn in toolbar
+    BaseFragment<FragmentAlbumDetailsBinding, AlbumDetailsStates, AlbumDetailsActions>() { //TODO add back btn in toolbar
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAlbumDetailsBinding
         get() = FragmentAlbumDetailsBinding::inflate

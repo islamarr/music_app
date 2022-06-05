@@ -3,7 +3,7 @@ package com.islam.music.features.album_details.domain.usecases
 import com.islam.music.common.data.DataResponse
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import com.islam.music.features.album_details.domain.repositories.AlbumDetailsRepository
-import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsResults
+import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsStates
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
@@ -13,18 +13,18 @@ class AlbumDetailsUseCase @Inject constructor(private val repository: AlbumDetai
     suspend fun execute(
         artistName: String,//TODO add artistName + albumName in data class
         albumName: String
-    ): AlbumDetailsResults {
+    ): AlbumDetailsStates {
         return when (val response = repository.getAlbumDetails(artistName, albumName)) {
 
             is DataResponse.Success -> {
                 response.data?.let {
-                    AlbumDetailsResults.RemoteAlbumDetails(it) //TODO inject mapper
-                } ?: AlbumDetailsResults.UnExpectedError
+                    AlbumDetailsStates.AlbumDetailsData(it) //TODO inject mapper
+                } ?: AlbumDetailsStates.ShowErrorMessage()
             }
             is DataResponse.Failure -> {
                 response.reason?.let {
-                    AlbumDetailsResults.Error(response.reason)
-                } ?: AlbumDetailsResults.UnExpectedError
+                    AlbumDetailsStates.ShowErrorMessage(response.reason)
+                } ?: AlbumDetailsStates.ShowErrorMessage()
             }
         }
 

@@ -9,7 +9,6 @@ sealed class SearchStates : ViewState {
     object Loading : SearchStates()
     data class ShowErrorMessage(val reason: String? = null) :
         SearchStates()
-
     data class ArtistListLoaded(val artistList: List<Artist>) : SearchStates()
     object EmptyArtistList : SearchStates()
 }

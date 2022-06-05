@@ -11,15 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import com.islam.music.common.Action
-import com.islam.music.common.BaseViewModel
-import com.islam.music.common.Result
 import com.islam.music.common.ViewState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<viewBinding : ViewBinding, STATES : ViewState, ACTIONS : Action, RESULTS : Result> : Fragment() {
+abstract class BaseFragment<viewBinding : ViewBinding, STATES : ViewState, ACTIONS : Action> :
+    Fragment() {
 
-    abstract val viewModel: BaseViewModel<STATES, ACTIONS, RESULTS>
+    abstract val viewModel: BaseViewModel<STATES, ACTIONS>
 
     private var _binding: viewBinding? = null
     protected val binding: viewBinding
@@ -51,7 +50,8 @@ abstract class BaseFragment<viewBinding : ViewBinding, STATES : ViewState, ACTIO
     }
 
     fun setToolbarTitle() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = (requireActivity() as AppCompatActivity).resources.getString(screenTitle)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            (requireActivity() as AppCompatActivity).resources.getString(screenTitle)
     }
 
     abstract fun setupOnViewCreated()

@@ -12,14 +12,13 @@ import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentMainScreenBinding
 import com.islam.music.features.main_screen.presentation.viewmodel.MainScreenActions
-import com.islam.music.features.main_screen.presentation.viewmodel.MainScreenResults
 import com.islam.music.features.main_screen.presentation.viewmodel.MainScreenStates
 import com.islam.music.features.main_screen.presentation.viewmodel.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainScreenFragment :
-    BaseFragment<FragmentMainScreenBinding, MainScreenStates, MainScreenActions, MainScreenResults>(),
+    BaseFragment<FragmentMainScreenBinding, MainScreenStates, MainScreenActions>(),
     OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainScreenBinding

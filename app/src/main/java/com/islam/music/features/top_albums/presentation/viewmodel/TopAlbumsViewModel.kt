@@ -1,6 +1,6 @@
 package com.islam.music.features.top_albums.presentation.viewmodel
 
-import com.islam.music.common.BaseViewModel
+import com.islam.music.common.view.BaseViewModel
 import com.islam.music.features.top_albums.domain.usecases.TopAlbumsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -9,23 +9,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TopAlbumsViewModel @Inject constructor(private val useCase: TopAlbumsUseCase) :
-    BaseViewModel<TopAlbumsStates, TopAlbumsActions, TopAlbumsResults>(TopAlbumsStates.InitialState) {
+    BaseViewModel<TopAlbumsStates, TopAlbumsActions>(TopAlbumsStates.InitialState) {
 
-    override fun reduce(result: TopAlbumsResults): TopAlbumsStates =
-        when (result) {
-            is TopAlbumsResults.UnExpectedError -> TopAlbumsStates.ShowErrorMessage()
-            is TopAlbumsResults.Error -> TopAlbumsStates.ShowErrorMessage(
-                result.reason
-            )
-            is TopAlbumsResults.TopAlbumsListLoaded -> TopAlbumsStates.TopAlbumsListLoaded(result.topAlbumsList)
-            is TopAlbumsResults.TopAlbumsEmptyList -> TopAlbumsStates.EmptyTopAlbumsList
-            is TopAlbumsResults.Loading -> TopAlbumsStates.Loading
-        }
-
-    override fun handle(actions: TopAlbumsActions): Flow<TopAlbumsResults> = flow {
+    override fun handle(actions: TopAlbumsActions): Flow<TopAlbumsStates> = flow {
         when (actions) {
             is TopAlbumsActions.LoadAllAlbums -> {
-                emit(TopAlbumsResults.Loading)
+                emit(TopAlbumsStates.Loading)
                 emit(useCase.execute(actions.artistName))
             }
         }

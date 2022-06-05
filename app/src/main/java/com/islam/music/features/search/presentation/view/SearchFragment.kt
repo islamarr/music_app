@@ -19,14 +19,13 @@ import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentSearchBinding
 import com.islam.music.features.search.presentation.viewmodel.SearchActions
-import com.islam.music.features.search.presentation.viewmodel.SearchResults
 import com.islam.music.features.search.presentation.viewmodel.SearchStates
 import com.islam.music.features.search.presentation.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment :
-    BaseFragment<FragmentSearchBinding, SearchStates, SearchActions, SearchResults>(),
+    BaseFragment<FragmentSearchBinding, SearchStates, SearchActions>(),
     SearchView.OnQueryTextListener,
     OnItemClickListener {  // TODO set res file style ( strings - dimen - ... ) + make references for everything
 
