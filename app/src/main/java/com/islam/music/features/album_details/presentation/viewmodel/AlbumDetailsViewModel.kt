@@ -2,23 +2,32 @@ package com.islam.music.features.album_details.presentation.viewmodel
 
 import com.islam.music.common.view.BaseViewModel
 import com.islam.music.features.album_details.domain.usecases.AlbumDetailsUseCase
+import com.islam.music.features.album_details.domain.usecases.GetFavoriteUseCase
+import com.islam.music.features.album_details.domain.usecases.SetFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 @HiltViewModel
-class AlbumDetailsViewModel @Inject constructor(private val useCase: AlbumDetailsUseCase) :
+class AlbumDetailsViewModel @Inject constructor(
+    private val albumDetailsUseCase: AlbumDetailsUseCase,
+    private val getFavoriteUseCase: GetFavoriteUseCase,
+    private val setFavoriteUseCase: SetFavoriteUseCase
+) :
     BaseViewModel<AlbumDetailsStates, AlbumDetailsActions>(AlbumDetailsStates.InitialState) {
 
     override fun handle(actions: AlbumDetailsActions): Flow<AlbumDetailsStates> = flow {
         when (actions) {
             is AlbumDetailsActions.AlbumDetailsAction -> {
                 emit(AlbumDetailsStates.Loading)
-                emit(useCase.execute(actions.artistName, actions.albumName))
-                emit(useCase.getFavorite(actions.artistName, actions.albumName))
+                emit(albumDetailsUseCase.execute(actions.artistName, actions.albumName))
+                emit(getFavoriteUseCase.execute(actions.artistName, actions.albumName))
             }
-            is AlbumDetailsActions.SetFavoriteAction -> useCase.setFavorite(actions.isAdd, actions.albumEntity)
+            is AlbumDetailsActions.SetFavoriteAction -> setFavoriteUseCase.execute(
+                actions.isAdd,
+                actions.albumEntity
+            )
         }
     }
 

@@ -6,7 +6,10 @@ import com.islam.music.features.main_screen.data.db.AlbumEntityToAlbumMapper
 import com.islam.music.features.top_albums.domain.entites.Album
 import javax.inject.Inject
 
-class AlbumDetailsLocalDataSourceImpl @Inject constructor(private val albumDao: AlbumDao) :
+class AlbumDetailsLocalDataSourceImpl @Inject constructor(
+    private val albumDao: AlbumDao,
+    private val albumEntityToAlbumMapper: AlbumEntityToAlbumMapper
+) :
     AlbumDetailsLocalDataSource {
     override suspend fun addToFavoriteList(album: AlbumEntity) {
         albumDao.addToFavoriteList(album)
@@ -17,7 +20,7 @@ class AlbumDetailsLocalDataSourceImpl @Inject constructor(private val albumDao: 
     }
 
     override fun getFavoriteList(): List<Album> {
-        return albumDao.getFavoriteList().map {  AlbumEntityToAlbumMapper().map(it) }
+        return albumDao.getFavoriteList().map { albumEntityToAlbumMapper.invoke(it) }
     }
 
     override fun getOneFavoriteAlbum(

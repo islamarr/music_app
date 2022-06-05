@@ -10,6 +10,6 @@ sealed class MainScreenStates : ViewState {
     data class ShowErrorMessage(val reason: String? = null) :
         MainScreenStates()
 
-    data class TopAlbumsListLoaded(val topAlbumsList: List<Album>) : MainScreenStates()
-    object EmptyTopAlbumsList : MainScreenStates()
+    data class SavedListLoaded(val topAlbumsList: List<Album>) : MainScreenStates()
+    object EmptySavedList : MainScreenStates()
 }

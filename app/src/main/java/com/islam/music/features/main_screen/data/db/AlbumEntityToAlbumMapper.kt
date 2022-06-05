@@ -4,10 +4,11 @@ import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import com.islam.music.features.top_albums.domain.entites.Album
 import com.islam.music.features.top_albums.domain.entites.Artist
 import com.islam.music.features.top_albums.domain.entites.Image
+import javax.inject.Inject
 
-class AlbumEntityToAlbumMapper {
+class AlbumEntityToAlbumMapper @Inject constructor() {
 
-    fun map(albumEntity: AlbumEntity): Album {
+    operator fun invoke(albumEntity: AlbumEntity): Album {
         return Album(
             albumName = albumEntity.albumName!!,
             images = listOf(Image("", albumEntity.coverImageUrl!!)),

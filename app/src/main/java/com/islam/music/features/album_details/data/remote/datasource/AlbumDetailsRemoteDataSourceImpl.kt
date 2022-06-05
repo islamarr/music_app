@@ -5,20 +5,21 @@ import com.islam.music.features.album_details.data.remote.api.AlbumDetailsAPISer
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import javax.inject.Inject
 
-class AlbumDetailsRemoteDataSourceImpl @Inject constructor(private val apiService: AlbumDetailsAPIService) :
+class AlbumDetailsRemoteDataSourceImpl @Inject constructor(
+    private val apiService: AlbumDetailsAPIService,
+    private val albumDetailsToAlbumMapper: AlbumDetailsToAlbumMapper
+) :
     AlbumDetailsRemoteDataSource {
 
     override suspend fun getAlbumDetails(
         artistName: String,
         albumName: String
     ): AlbumEntity {
-
-        return AlbumDetailsToAlbumMapper().map(
+        return albumDetailsToAlbumMapper.invoke(
             apiService.getAlbumDetails(
                 artistName,
                 albumName
             ).album
-        ) //TODO change map parameter
-
+        )
     }
 }

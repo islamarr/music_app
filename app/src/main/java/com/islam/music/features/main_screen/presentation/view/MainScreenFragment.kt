@@ -54,11 +54,11 @@ class MainScreenFragment :
         when (it) {
             is MainScreenStates.InitialState -> Log.d("tag", "handleViewState: ")
             is MainScreenStates.Loading -> binding.container.loading.visible()
-            is MainScreenStates.TopAlbumsListLoaded -> {
+            is MainScreenStates.SavedListLoaded -> {
                 showEmptyList(false)
                 albumsAdapter.submitList(it.topAlbumsList)
             }
-            is MainScreenStates.EmptyTopAlbumsList -> {
+            is MainScreenStates.EmptySavedList -> {
                 showEmptyList(true)
                 binding.container.resultStatusText.text = getString(R.string.no_data_to_show)
             }

@@ -32,13 +32,14 @@ class AlbumDetailsFragment :
     override val viewModel: AlbumDetailsViewModel by viewModels()
     private val args: AlbumDetailsFragmentArgs by navArgs()
     private var albumEntity = AlbumEntity()
-    private var isFav: Boolean = false
+    private var isFavorite: Boolean = false
 
     override fun setupOnViewCreated() {
         initRecyclerView()
         setArgumentsData()
         binding.addToFavorite.setOnClickListener {
-            viewModel.dispatch(AlbumDetailsActions.SetFavoriteAction(!isFav, albumEntity))
+            isFavorite = !isFavorite
+            viewModel.dispatch(AlbumDetailsActions.SetFavoriteAction(isFavorite, albumEntity))
         }
     }
 
@@ -89,8 +90,8 @@ class AlbumDetailsFragment :
             }
             is AlbumDetailsStates.SavedState -> {
                 binding.addToFavorite.visible()
-                isFav = it.isSaved
-                binding.addToFavorite.isChecked = isFav
+                isFavorite = it.isSaved
+                binding.addToFavorite.isChecked = isFavorite
             }
         }
     }
