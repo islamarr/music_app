@@ -11,7 +11,7 @@ import com.islam.music.common.OnItemClickListener
 import com.islam.music.common.gone
 import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.visible
-import com.islam.music.databinding.FragmentTopAlbumsBinding
+import com.islam.music.databinding.FragmentMainScreenBinding
 import com.islam.music.features.main_screen.presentation.view.AlbumsAdapter
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsActions
 import com.islam.music.features.top_albums.presentation.viewmodel.TopAlbumsStates
@@ -20,15 +20,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TopAlbumsFragment :
-    BaseFragment<FragmentTopAlbumsBinding, TopAlbumsStates, TopAlbumsActions>(),
+    BaseFragment<FragmentMainScreenBinding, TopAlbumsStates, TopAlbumsActions>(),
     OnItemClickListener {
 
     private val args: TopAlbumsFragmentArgs by navArgs()
     private lateinit var albumsAdapter: AlbumsAdapter
 
     override val viewModel: TopAlbumsViewModel by viewModels()
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTopAlbumsBinding
-        get() = FragmentTopAlbumsBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainScreenBinding
+        get() = FragmentMainScreenBinding::inflate
+
     override fun screenTitle() = getString(R.string.top_albums_screen_title, args.artistName)
 
     override fun setupOnViewCreated() {
@@ -63,7 +64,7 @@ class TopAlbumsFragment :
             is TopAlbumsStates.EmptyTopAlbumsList -> {
                 showEmptyList(true)
                 // binding.retryBtn.gone()
-                binding.container.resultStatusText.text = getString(R.string.no_data_to_show)
+                binding.container.resultStatusText.text = getString(R.string.no_albums)
             }
             is TopAlbumsStates.ShowErrorMessage -> {
                 showEmptyList(true)

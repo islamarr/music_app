@@ -60,7 +60,7 @@ class MainScreenFragment :
             }
             is MainScreenStates.EmptySavedList -> {
                 showEmptyList(true)
-                binding.container.resultStatusText.text = getString(R.string.no_data_to_show)
+                binding.container.resultStatusText.text = getString(R.string.no_favorite)
             }
             is MainScreenStates.ShowErrorMessage -> {
                 showEmptyList(true)

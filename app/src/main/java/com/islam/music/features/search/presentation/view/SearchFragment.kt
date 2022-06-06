@@ -17,7 +17,7 @@ import com.islam.music.common.gone
 import com.islam.music.common.setKeyboardVisibility
 import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.visible
-import com.islam.music.databinding.FragmentSearchBinding
+import com.islam.music.databinding.FragmentMainScreenBinding
 import com.islam.music.features.search.presentation.viewmodel.SearchActions
 import com.islam.music.features.search.presentation.viewmodel.SearchStates
 import com.islam.music.features.search.presentation.viewmodel.SearchViewModel
@@ -25,12 +25,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment :
-    BaseFragment<FragmentSearchBinding, SearchStates, SearchActions>(),
+    BaseFragment<FragmentMainScreenBinding, SearchStates, SearchActions>(),
     SearchView.OnQueryTextListener,
-    OnSearchItemClickListener {  // TODO set res file style ( strings - dimen - ... ) + make references for everything
+    OnSearchItemClickListener {
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
-        get() = FragmentSearchBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMainScreenBinding
+        get() = FragmentMainScreenBinding::inflate
 
     override fun screenTitle() = getString(R.string.search_screen_title)
 
@@ -78,7 +78,7 @@ class SearchFragment :
             is SearchStates.EmptyArtistList -> {
                 showEmptyList(true)
                 // binding.retryBtn.gone() //TODO retry
-                binding.container.resultStatusText.text = getString(R.string.no_data_to_show)
+                binding.container.resultStatusText.text = getString(R.string.no_Artists)
             }
             is SearchStates.ShowErrorMessage -> {
                 showEmptyList(true)
