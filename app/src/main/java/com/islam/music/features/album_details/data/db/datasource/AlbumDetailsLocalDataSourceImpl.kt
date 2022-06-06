@@ -2,6 +2,7 @@ package com.islam.music.features.album_details.data.db.datasource
 
 import com.islam.music.features.album_details.data.db.AlbumDao
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
+import com.islam.music.features.album_details.domain.entites.AlbumParams
 import com.islam.music.features.main_screen.data.db.AlbumEntityToAlbumMapper
 import com.islam.music.features.top_albums.domain.entites.Album
 import javax.inject.Inject
@@ -24,9 +25,8 @@ class AlbumDetailsLocalDataSourceImpl @Inject constructor(
     }
 
     override fun getOneFavoriteAlbum(
-        artistName: String,
-        albumName: String
+        albumParams: AlbumParams
     ): AlbumEntity {
-        return albumDao.getOneFavoriteAlbum(artistName, albumName)
+        return albumDao.getOneFavoriteAlbum(albumParams.artistName, albumParams.albumName)
     }
 }

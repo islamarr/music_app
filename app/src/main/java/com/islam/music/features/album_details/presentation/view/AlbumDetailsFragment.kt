@@ -15,6 +15,7 @@ import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentAlbumDetailsBinding
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
+import com.islam.music.features.album_details.domain.entites.AlbumParams
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsActions
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsStates
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsViewModel
@@ -28,6 +29,7 @@ class AlbumDetailsFragment :
     private var albumEntity = AlbumEntity()
     private var isFavorite: Boolean = false
     private lateinit var trackAdapter: TrackAdapter
+    private lateinit var albumParams: AlbumParams
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAlbumDetailsBinding
         get() = FragmentAlbumDetailsBinding::inflate
@@ -48,6 +50,7 @@ class AlbumDetailsFragment :
         binding.albumName.text = args.albumName
         binding.albumArtistName.text = args.artistName
         loadImage(args.imageUrl)
+        albumParams = AlbumParams(args.artistName, args.albumName)
     }
 
     private fun initRecyclerView() {
@@ -66,8 +69,8 @@ class AlbumDetailsFragment :
             .into(binding.albumCoverImage)
     }
 
-    private fun loadAlbumDetails(artistName: String, albumName: String) {
-        viewModel.dispatch(AlbumDetailsActions.AlbumDetailsAction(artistName, albumName))
+    private fun loadAlbumDetails(albumParams: AlbumParams) {
+        viewModel.dispatch(AlbumDetailsActions.AlbumDetailsAction(albumParams))
     }
 
     private fun showEmptyList(show: Boolean) {
@@ -78,12 +81,13 @@ class AlbumDetailsFragment :
 
     override fun handleViewState(it: AlbumDetailsStates) {
         when (it) {
-            is AlbumDetailsStates.InitialState -> loadAlbumDetails(args.artistName, args.albumName)
+            is AlbumDetailsStates.InitialState -> loadAlbumDetails(albumParams)
             is AlbumDetailsStates.Loading -> binding.loading.visible()
             is AlbumDetailsStates.AlbumDetailsData -> {
+                val resultTrackList = it.albumDetails.trackList
                 binding.addToFavorite.visible()
-                showEmptyList(it.isTrackListEmpty)
-                trackAdapter.submitList(it.albumDetails.trackList)
+                showEmptyList(resultTrackList.isEmpty())
+                trackAdapter.submitList(resultTrackList)
                 albumEntity = it.albumDetails
             }
             is AlbumDetailsStates.ShowErrorMessage -> {

@@ -9,7 +9,7 @@ sealed class AlbumDetailsStates : ViewState {
     data class ShowErrorMessage(val reason: String? = null) :
         AlbumDetailsStates()
 
-    data class AlbumDetailsData(val albumDetails: AlbumEntity, val isTrackListEmpty: Boolean) :
+    data class AlbumDetailsData(val albumDetails: AlbumEntity) :
         AlbumDetailsStates()
 
     data class SavedState(val isSaved: Boolean) : AlbumDetailsStates()

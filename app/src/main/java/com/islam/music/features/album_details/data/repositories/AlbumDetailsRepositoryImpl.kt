@@ -5,6 +5,7 @@ import com.islam.music.common.data.SafeServiceCall
 import com.islam.music.features.album_details.data.db.datasource.AlbumDetailsLocalDataSource
 import com.islam.music.features.album_details.data.remote.datasource.AlbumDetailsRemoteDataSource
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
+import com.islam.music.features.album_details.domain.entites.AlbumParams
 import com.islam.music.features.album_details.domain.repositories.AlbumDetailsRepository
 import com.islam.music.features.top_albums.domain.entites.Album
 import javax.inject.Inject
@@ -14,13 +15,10 @@ class AlbumDetailsRepositoryImpl @Inject constructor(
     private val localDataSource: AlbumDetailsLocalDataSource
 ) : AlbumDetailsRepository {
 
-    override suspend fun getAlbumDetails(
-        artistName: String,
-        albumName: String
-    ): DataResponse<AlbumEntity> {
+    override suspend fun getAlbumDetails(albumParams: AlbumParams): DataResponse<AlbumEntity> {
         return object : SafeServiceCall<AlbumEntity>(
-            apiCall = { remoteDataSource.getAlbumDetails(artistName, albumName) },
-            cacheCall = { localDataSource.getOneFavoriteAlbum(artistName, albumName) }
+            apiCall = { remoteDataSource.getAlbumDetails(albumParams) },
+            cacheCall = { localDataSource.getOneFavoriteAlbum(albumParams) }
         ) {}.safeCall()
     }
 
@@ -38,12 +36,9 @@ class AlbumDetailsRepositoryImpl @Inject constructor(
         ) {}.safeCall()
     }
 
-    override suspend fun getOneFavoriteAlbum(
-        artistName: String,
-        albumName: String
-    ): DataResponse<AlbumEntity> {
+    override suspend fun getOneFavoriteAlbum(albumParams: AlbumParams): DataResponse<AlbumEntity> {
         return object : SafeServiceCall<AlbumEntity>(
-            cacheCall = { localDataSource.getOneFavoriteAlbum(artistName, albumName) }
+            cacheCall = { localDataSource.getOneFavoriteAlbum(albumParams) }
         ) {}.safeCall()
     }
 
