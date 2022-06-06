@@ -13,8 +13,7 @@ class AlbumDetailsRemoteDataSourceImpl @Inject constructor(
     AlbumDetailsRemoteDataSource {
 
     override suspend fun getAlbumDetails(albumParams: AlbumParams): AlbumEntity {
-        return albumDetailsToAlbumMapper.invoke(
-            apiService.getAlbumDetails(albumParams.artistName, albumParams.albumName).album
-        )
+        val response = apiService.getAlbumDetails(albumParams.artistName, albumParams.albumName)
+        return albumDetailsToAlbumMapper.invoke(response.album)
     }
 }
