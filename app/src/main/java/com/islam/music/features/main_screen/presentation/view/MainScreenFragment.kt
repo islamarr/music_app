@@ -52,7 +52,7 @@ class MainScreenFragment :
 
     override fun handleViewState(it: MainScreenStates) {
         when (it) {
-            is MainScreenStates.InitialState -> Log.d("tag", "handleViewState: ")
+            is MainScreenStates.InitialState -> Log.d("tag", "handleViewState: ") //TODO edit
             is MainScreenStates.Loading -> binding.container.loading.visible()
             is MainScreenStates.SavedListLoaded -> {
                 showEmptyList(false)

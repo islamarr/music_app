@@ -12,9 +12,9 @@ class SearchViewModel @Inject constructor(private val useCase: SearchArtistUseCa
     BaseViewModel<SearchStates, SearchActions>(SearchStates.InitialState) {
 
     override fun handle(actions: SearchActions): Flow<SearchStates> = flow {
-        emit(SearchStates.Loading)
         when (actions) {
             is SearchActions.SearchArtistByName -> {
+                emit(SearchStates.Loading)
                 emit(useCase.execute(actions.query, actions.isLoadMore))
             }
         }
