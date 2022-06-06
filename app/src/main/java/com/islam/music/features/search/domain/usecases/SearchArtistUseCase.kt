@@ -1,6 +1,5 @@
 package com.islam.music.features.search.domain.usecases
 
-import android.util.Log
 import com.islam.music.common.data.DataResponse
 import com.islam.music.features.search.domain.entites.Artist
 import com.islam.music.features.search.domain.repositories.SearchArtistRepository

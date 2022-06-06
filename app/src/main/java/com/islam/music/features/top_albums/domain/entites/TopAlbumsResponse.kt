@@ -4,5 +4,5 @@ import com.squareup.moshi.Json
 
 data class TopAlbumsResponse(
     @field:Json(name = "topalbums")
-    val topAlbums: Topalbums
+    val topAlbums: Topalbums = Topalbums()
 )
