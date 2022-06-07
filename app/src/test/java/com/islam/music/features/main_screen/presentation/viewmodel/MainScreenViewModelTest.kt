@@ -71,7 +71,7 @@ class MainScreenViewModelTest {
     }
 
     @Test
-    fun `when dispatch viewModel return LoadAllSavedAlbums state`() = runBlocking {
+    fun `when dispatch viewModel return EmptySavedList state`() = runBlocking {
         val action = MainScreenActions.LoadAllSavedAlbums
 
         val job = launch {

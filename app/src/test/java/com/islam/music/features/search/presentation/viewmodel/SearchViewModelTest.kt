@@ -51,7 +51,7 @@ class SearchViewModelTest {
     }
 
     @Test
-    fun `when load Albums return EmptyTopAlbumsList State as a second result`() = runBlocking {
+    fun `when load Albums return EmptyArtistList State as a second result`() = runBlocking {
         val artistName = "artist"
         val isLoadMore = false
         whenever(useCase.execute(artistName, isLoadMore)).thenReturn(SearchStates.EmptyArtistList)
@@ -74,7 +74,7 @@ class SearchViewModelTest {
     }
 
     @Test
-    fun `when dispatch viewModel return EmptyTopAlbumsList state`() = runBlocking {
+    fun `when dispatch viewModel return EmptyArtistList state`() = runBlocking {
         val artistName = "artist"
         val isLoadMore = false
         val action = SearchActions.SearchArtistByName(artistName)

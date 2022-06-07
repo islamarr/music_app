@@ -7,7 +7,7 @@ import com.islam.music.features.top_albums.domain.entites.Album
 sealed class TopAlbumsStates : ViewState {
     object InitialState : TopAlbumsStates()
     object Loading : TopAlbumsStates()
-    data class ShowErrorMessage(val reason: String? = null) : //TODO change ShowErrorMessage
+    data class ShowErrorMessage(val reason: String? = null) :
         TopAlbumsStates()
 
     data class TopAlbumsListLoaded(val topAlbumsList: List<Album>) : TopAlbumsStates()

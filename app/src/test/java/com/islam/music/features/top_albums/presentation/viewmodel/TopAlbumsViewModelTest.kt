@@ -51,7 +51,7 @@ class TopAlbumsViewModelTest {
     }
 
     @Test
-    fun `when load Albums return EmptyTopAlbumsList State as a second result`() = runBlocking {
+    fun `when load Albums return Empty Top Albums List State as a second result`() = runBlocking {
         val artistName = "artist"
         whenever(useCase.execute(artistName)).thenReturn(TopAlbumsStates.EmptyTopAlbumsList)
 
@@ -73,7 +73,7 @@ class TopAlbumsViewModelTest {
     }
 
     @Test
-    fun `when dispatch viewModel return EmptyTopAlbumsList state`() = runBlocking {
+    fun `when dispatch viewModel return Empty Top Albums List state`() = runBlocking {
         val artistName = "artist"
         val action = TopAlbumsActions.LoadAllAlbums(artistName)
 

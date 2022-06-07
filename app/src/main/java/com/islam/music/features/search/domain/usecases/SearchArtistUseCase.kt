@@ -26,7 +26,7 @@ class SearchArtistUseCase @Inject constructor(private val repository: SearchArti
             is DataResponse.Success -> {
                 response.data?.let {
                     isReachBottom =
-                        (it.results.startIndex + (currentPage * it.results.itemsPerPage.toInt())) >= it.results.totalResults //TODO rotate in pagination
+                        (it.results.startIndex + (currentPage * it.results.itemsPerPage.toInt())) >= it.results.totalResults
                     artistList.addAll(it.results.artists.artist)
 
                     if (artistList.isEmpty()) SearchStates.EmptyArtistList else

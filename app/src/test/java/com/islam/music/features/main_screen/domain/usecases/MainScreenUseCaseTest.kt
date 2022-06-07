@@ -38,7 +38,7 @@ class MainScreenUseCaseTest {
         }
 
     @Test
-    fun `when get empty car list response return SavedListLoaded result`() = runBlocking {
+    fun `when get Favorite List response return SavedListLoaded result`() = runBlocking {
         val responseData = listOf(Album(Artist(), listOf(), "1", "album"))
         whenever(repository.getFavoriteList()).thenReturn(
             DataResponse.Success(responseData)

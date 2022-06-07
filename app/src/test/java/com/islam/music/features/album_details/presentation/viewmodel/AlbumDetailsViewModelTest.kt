@@ -55,7 +55,7 @@ class AlbumDetailsViewModelTest {
     }
 
     @Test
-    fun `when load Album details return Loading State as a first result`() = runBlocking { //TODO check method names
+    fun `when load Album details return Loading State as a first result`() = runBlocking {
         val albumParams = AlbumParams(artistName = "artist", albumName = "album")
 
         val actual = viewModel.handle(AlbumDetailsActions.AlbumDetailsAction(albumParams)).first()

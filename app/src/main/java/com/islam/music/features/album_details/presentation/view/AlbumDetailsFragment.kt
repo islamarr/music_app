@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AlbumDetailsFragment :
-    BaseFragment<FragmentAlbumDetailsBinding, AlbumDetailsStates, AlbumDetailsActions>() { //TODO add back btn in toolbar
+    BaseFragment<FragmentAlbumDetailsBinding, AlbumDetailsStates, AlbumDetailsActions>() {
 
     private val args: AlbumDetailsFragmentArgs by navArgs()
     private var albumEntity = AlbumEntity()

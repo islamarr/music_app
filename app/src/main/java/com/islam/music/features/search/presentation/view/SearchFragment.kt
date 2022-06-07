@@ -70,7 +70,7 @@ class SearchFragment :
 
     override fun handleViewState(it: SearchStates) {
         when (it) {
-            is SearchStates.InitialState -> Log.d("TAG", "InitialState: ")
+            is SearchStates.InitialState -> Log.d("TAG", "InitialState")
             is SearchStates.Loading -> binding.container.loading.visible()
             is SearchStates.ArtistListLoaded -> {
                 showEmptyList(false)
@@ -80,7 +80,6 @@ class SearchFragment :
             }
             is SearchStates.EmptyArtistList -> {
                 showEmptyList(true)
-                // binding.retryBtn.gone() //TODO retry
                 binding.container.resultStatusText.text = getString(R.string.no_Artists)
                 EspressoIdlingResource.decrement()
             }

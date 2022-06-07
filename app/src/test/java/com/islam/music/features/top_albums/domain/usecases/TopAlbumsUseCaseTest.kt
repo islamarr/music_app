@@ -28,7 +28,7 @@ class TopAlbumsUseCaseTest {
     }
 
     @Test
-    fun `when execute useCase return EmptyTopAlbumsList State with Empty lsit response`() =
+    fun `when execute useCase return Empty Top Albums List State with Empty list response`() =
         runBlocking {
 
             val artistName = "artist"
@@ -45,7 +45,7 @@ class TopAlbumsUseCaseTest {
         }
 
     @Test
-    fun `when get empty car list response return CarImageURLEmptyList result`() = runBlocking {
+    fun `when get Top album list response return Top Albums List Loaded State`() = runBlocking {
         val artistName = "artist"
         val responseData = Topalbums(listOf(Album(Artist(), listOf(), "1", "album")))
         whenever(repository.getTopAlbums(artistName)).thenReturn(
