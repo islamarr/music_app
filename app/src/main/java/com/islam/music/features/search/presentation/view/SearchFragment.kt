@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.islam.music.R
+import com.islam.music.common.EspressoIdlingResource
 import com.islam.music.common.gone
 import com.islam.music.common.setKeyboardVisibility
 import com.islam.music.common.view.BaseFragment
@@ -52,6 +53,7 @@ class SearchFragment :
     }
 
     private fun loadArtistList(isLoadMore: Boolean = false) {
+        EspressoIdlingResource.increment()
         viewModel.dispatch(
             SearchActions.SearchArtistByName(
                 query = queryTyped,
@@ -74,15 +76,18 @@ class SearchFragment :
                 showEmptyList(false)
                 isReachBottom = it.isReachBottom
                 artistsAdapter.submitList(it.result.toList())
+                EspressoIdlingResource.decrement()
             }
             is SearchStates.EmptyArtistList -> {
                 showEmptyList(true)
                 // binding.retryBtn.gone() //TODO retry
                 binding.container.resultStatusText.text = getString(R.string.no_Artists)
+                EspressoIdlingResource.decrement()
             }
             is SearchStates.ShowErrorMessage -> {
                 showEmptyList(true)
                 binding.container.resultStatusText.text = getString(R.string.error_message)
+                EspressoIdlingResource.decrement()
             }
         }
     }

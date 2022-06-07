@@ -125,4 +125,7 @@ dependencies {
 
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
     debugImplementation "androidx.test:core:$androidXTestCoreVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 }
