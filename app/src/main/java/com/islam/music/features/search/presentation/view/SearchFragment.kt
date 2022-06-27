@@ -76,6 +76,7 @@ class SearchFragment :
                 showEmptyList(false)
                 isReachBottom = it.isReachBottom
                 artistsAdapter.submitList(it.result.toList())
+                queryTyped = it.query
                 EspressoIdlingResource.decrement()
             }
             is SearchStates.EmptyArtistList -> {
@@ -117,6 +118,7 @@ class SearchFragment :
             queryHint = resources.getString(R.string.search_hint)
             setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
             setIconifiedByDefault(false)
+            setQuery(queryTyped, false)
             isSubmitButtonEnabled = true
             isIconified = false
             setOnQueryTextListener(this@SearchFragment)
