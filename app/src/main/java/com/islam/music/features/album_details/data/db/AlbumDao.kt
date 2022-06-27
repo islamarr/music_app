@@ -1,7 +1,11 @@
 package com.islam.music.features.album_details.data.db
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -14,7 +18,7 @@ interface AlbumDao {
     suspend fun removeFromFavoriteList(albumName: String?, artistName: String?)
 
     @Query("SELECT * FROM album")
-    fun getFavoriteList(): List<AlbumEntity>
+    fun getFavoriteList(): Flow<List<AlbumEntity>>
 
     @Query("SELECT * FROM album WHERE artistName = :artistName and albumName = :albumName")
     fun getOneFavoriteAlbum(artistName: String, albumName: String): AlbumEntity

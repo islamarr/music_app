@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -11,15 +14,19 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.islam.music.R
 import com.islam.music.common.IMAGE_SIZE_MULTIPLIER
 import com.islam.music.common.gone
+import com.islam.music.common.showShowSnackBar
 import com.islam.music.common.view.BaseFragment
 import com.islam.music.common.visible
 import com.islam.music.databinding.FragmentAlbumDetailsBinding
 import com.islam.music.features.album_details.domain.entites.AlbumEntity
 import com.islam.music.features.album_details.domain.entites.AlbumParams
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsActions
+import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsEvents
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsStates
 import com.islam.music.features.album_details.presentation.viewmodel.AlbumDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AlbumDetailsFragment :
@@ -40,6 +47,7 @@ class AlbumDetailsFragment :
     override fun setupOnViewCreated() {
         initRecyclerView()
         setArgumentsData()
+        collectViewEvents()
         binding.addToFavorite.setOnClickListener {
             isFavorite = !isFavorite
             viewModel.dispatch(AlbumDetailsActions.SetFavoriteAction(isFavorite, albumEntity))
@@ -98,6 +106,31 @@ class AlbumDetailsFragment :
                 isFavorite = it.isSaved
                 binding.addToFavorite.isChecked = isFavorite
             }
+        }
+    }
+
+    private fun collectViewEvents() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiEvent.collect {
+                    handleViewEvents(it)
+                }
+            }
+        }
+    }
+
+    private fun handleViewEvents(it: AlbumDetailsEvents) {
+        when (it) {
+            is AlbumDetailsEvents.ShowUndoSaveSnackBar -> showSnackBar()
+        }
+    }
+
+    private fun showSnackBar() {
+        showShowSnackBar(
+            text = getString(R.string.undo_message),
+            actionMessage = getString(R.string.undo)
+        ) {
+            binding.addToFavorite.performClick()
         }
     }
 

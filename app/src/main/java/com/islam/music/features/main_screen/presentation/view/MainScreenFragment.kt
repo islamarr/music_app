@@ -30,7 +30,6 @@ class MainScreenFragment :
 
     override fun setupOnViewCreated() {
         initRecyclerView()
-        loadAlbumList()
     }
 
     private fun initRecyclerView() {
@@ -52,7 +51,7 @@ class MainScreenFragment :
 
     override fun handleViewState(it: MainScreenStates) {
         when (it) {
-            is MainScreenStates.InitialState -> Log.d("TAG", "InitialState")
+            is MainScreenStates.InitialState -> loadAlbumList()
             is MainScreenStates.Loading -> binding.container.loading.visible()
             is MainScreenStates.SavedListLoaded -> {
                 showEmptyList(false)
