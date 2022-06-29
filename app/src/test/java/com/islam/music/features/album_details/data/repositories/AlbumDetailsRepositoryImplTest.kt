@@ -59,7 +59,7 @@ class AlbumDetailsRepositoryImplTest {
     @Test
     fun `test get Favorite List in success statue`() = runBlocking {
         val albumEntity = listOf(Album(Artist(), listOf(), "1", "album"))
-        whenever(localDataSource.getFavoriteList()).thenReturn(albumEntity)
+        whenever(localDataSource.getFavoriteList()).thenReturn(albumEntity) //TODO fix unit testing
 
         val actual = repository.getFavoriteList()
         val expected = DataResponse.Success(albumEntity)
